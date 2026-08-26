@@ -1,0 +1,1395 @@
+<!doctype html>
+<html lang="ar" dir="rtl">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/css/bootstrap.rtl.min.css">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Cairo:wght@300;400;600;700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/bootstrap-icons@1.11.3/font/bootstrap-icons.css">
+  <title>ستيب البرايفت - أكاديمية عايد</title>
+  <style>
+    *{font-family:'Cairo', sans-serif}
+    body{height:auto;min-height:100vh;background:#fff;padding-bottom:130px}
+    .youtube-container{position:relative;width:100%;margin:14px 0 10px 0;cursor:pointer;overflow:hidden;aspect-ratio:16/9;padding:0;border-radius:16px;border:1px solid #eef2f7;background:#0f172a;isolation:isolate}
+    .youtube-thumbnail{position:absolute;inset:0;width:100%;height:100%;background-size:cover;background-position:center;transition:filter .3s ease;pointer-events:none;z-index:1}
+    .youtube-container:hover .youtube-thumbnail{filter:brightness(78%)}
+    .play-button{position:absolute;top:50%;left:50%;transform:translate(-50%,-50%);width:78px;height:78px;background:radial-gradient(rgba(255,255,255,.95), rgba(255,255,255,.35));border-radius:50%;display:flex;align-items:center;justify-content:center;box-shadow:0 8px 24px rgba(0,0,0,.18);z-index:2;pointer-events:none;border:none;padding:0}
+    .play-button::before{content:'';border-style:solid;border-width:14px 0 14px 24px;border-color:transparent transparent transparent #ff0000;margin-left:4px}
+    .youtube-container:hover .play-button{transform:translate(-50%,-50%) scale(1.07)}
+    .youtube-container.is-playing{cursor:default}
+    .youtube-container iframe{position:absolute;inset:0;width:100%;height:100%;border:0;z-index:5;background:#000}
+    :root{
+      --brand-navy:#003A5E;
+      --brand-orange:#ff9900;
+      --brand-border:#e6e9ef;
+    }
+    html{scroll-behavior:smooth}
+    .coursePg > .container{max-width:1260px}
+    .breadcrumbPro{margin-bottom:14px}
+    .breadcrumbPro .breadcrumb{font-size:13px;font-weight:600}
+    .breadcrumbPro .breadcrumb a{color:#64748b;text-decoration:none;transition:.2s}
+    .breadcrumbPro .breadcrumb a:hover{color:var(--brand-navy)}
+    .breadcrumbPro .breadcrumb-item+.breadcrumb-item::before{float:right;padding-left:6px;color:#94a3b8;content:"/"}
+    .breadcrumbPro .breadcrumb-item.active{color:#0f172a;font-weight:700}
+    .contentCour .courseTitle h2{font-size:clamp(26px,4vw,40px)!important;line-height:1.3!important;font-weight:800;color:var(--brand-navy);margin-bottom:14px}
+    .boxBuy{border:1px solid var(--brand-border);border-radius:16px;padding:22px;background:#fff;box-shadow:0 8px 24px rgba(0,58,94,.06);transition:all .28s ease}
+    .dualCtaSection{margin:12px 0 6px 0}
+    .dualCta{display:flex;gap:12px;flex-wrap:wrap}
+    .btnPro{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:14px;font-weight:800;font-size:15px;text-decoration:none;transition:all .22s ease;min-width:190px}
+    .btnPro-primary{background:linear-gradient(180deg,#ffb341 0%, #ff9900 100%);color:#003A5E;border:1px solid #e68a00;box-shadow:0 10px 22px rgba(255,153,0,.28)}
+    .btnPro-primary:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(255,153,0,.34);color:#003A5E}
+    .btnPro-secondary{background:#fff;color:#003A5E;border:2px solid #003A5E;box-shadow:0 6px 18px rgba(0,58,94,.06)}
+    .btnPro-secondary:hover{background:#003A5E;color:#fff}
+    .contentPro{border:1px solid var(--brand-border);border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(0,58,94,.04);margin-top:22px}
+    .contentPro__header{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;background:#fbfcfe;border-bottom:1px solid #eef2f7;flex-wrap:wrap;gap:10px}
+    .contentPro__title{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--brand-navy);font-size:17px}
+    .contentPro__title i{width:36px;height:36px;background:#003A5E;color:#fff;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:17px}
+    .contentPro__meta{display:flex;gap:8px;flex-wrap:wrap}
+    .contentPro__meta span{background:#fff;border:1px solid var(--brand-border);border-radius:999px;padding:5px 11px;font-size:11px;font-weight:700;color:#44566a;display:inline-flex;gap:5px;align-items:center}
+    .accordionPro .accordion-item{border:1px solid #e2e8f0;border-radius:14px!important;overflow:hidden;margin-bottom:20px;background:#fff}
+    .accordionPro .accordion-button{padding:16px 18px;font-weight:800;color:var(--brand-navy);background:#eef6ff!important;box-shadow:none;gap:12px;font-size:14px;border:none}
+    .accordionPro .accordion-button:not(.collapsed){background:#dbeafe!important;color:var(--brand-navy)}
+    .accordionPro .accordion-button::after{margin-right:auto;margin-left:0}
+    .moduleIcon{width:34px;height:34px;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:17px;flex:0 0 34px;border:1px solid #e6e9ef}
+    .moduleIcon.video{background:#e3f2fd;color:#1565c0;border-color:#bbdefb}
+    .moduleIcon.doc{background:#fff3e0;color:#ef6c00;border-color:#ffe0b2}
+    .moduleIcon.quiz{background:#e8f5e9;color:#2e7d32;border-color:#c8e6c9}
+    .lessonList{padding:0!important;display:flex!important;flex-direction:column!important;gap:0!important;background:#f8fbff!important}
+    .lessonRow{display:flex;align-items:center;justify-content:space-between;gap:10px;padding:14px 18px!important;margin:0!important;border-radius:0!important;border-bottom:1px solid #e6f0ff!important;position:relative;transition:all .18s ease!important;background:#f8fbff}
+    .lessonRow:last-child{border-bottom:none!important;margin-bottom:20px!important}
+    .lessonRow:hover{background:linear-gradient(90deg,#e8f2ff 0%, #f8fbff 100%)!important;padding-right:22px!important}
+    .lessonRow__left{flex:1;display:flex;align-items:center;gap:10px}
+    .lessonRow__icon{width:28px;height:28px;border-radius:8px;background:#fff;color:#4a5d74;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:0 0 28px;border:1px solid #e6f0ff}
+    .lessonRow__name{font-size:13px;font-weight:700;color:#1e293b;line-height:1.5}
+    .lessonRow__meta span{font-size:11px;color:#6b7a8a;display:inline-flex;gap:4px;align-items:center;background:#fff;border:1px solid #e6f0ff;padding:4px 8px;border-radius:999px}
+    .includesPro{border:1px solid #eef2f7;border-radius:14px;background:#fff;overflow:hidden;margin-top:14px}
+    .includesPro__head{padding:12px 14px;background:#fbfcfe;border-bottom:1px solid #eef2f7;display:flex;align-items:center;justify-content:space-between}
+    .includesPro__head b{font-size:13px;font-weight:800;color:#0f172a;display:flex;align-items:center;gap:8px}
+    .includesPro__head b i{width:30px;height:30px;background:#0f172a;color:#fff;border-radius:9px;display:inline-flex;align-items:center;justify-content:center;font-size:14px}
+    .includesPro__head span{font-size:11px;color:#64748b;background:#fff;border:1px solid #eef2f7;border-radius:999px;padding:4px 10px;font-weight:700}
+    .includesPro__grid{display:grid;grid-template-columns:1fr 1fr;gap:8px;padding:10px}
+    .includesPro__item{background:#f8fafc;border:1px solid #f1f5f9;border-radius:12px;padding:10px 11px;display:flex;align-items:center;gap:10px;min-width:0;transition:.15s}
+    .includesPro__item:hover{background:#fff;border-color:#e2e8f0;transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.04)}
+    .includesPro__item i{width:36px;height:36px;border-radius:10px;background:#fff;border:1px solid #eef2f7;display:inline-flex;align-items:center;justify-content:center;font-size:16px;color:#003A5E;flex:0 0 36px}
+    .includesPro__item__text{display:flex;flex-direction:column;gap:1px;min-width:0}
+    .includesPro__item__text small{font-size:11px;color:#64748b;font-weight:600;line-height:1.1}
+    .includesPro__item__text b{font-size:12.5px;color:#0f172a;font-weight:800;line-height:1.2}
+    .sidebarCourseImg{border:1px solid #eef2f7;border-radius:16px;overflow:hidden;background:#fff;box-shadow:0 8px 24px rgba(0,58,94,.04);padding:12px}
+    .sidebarCourseImg img{width:100%;aspect-ratio:1/1;object-fit:cover;display:block;border-radius:12px}
+    .mobileBuyBar{position:fixed;bottom:0;left:0;right:0;z-index:60;background:#fff;border-top:1px solid #e6e9ef;box-shadow:0 -10px 28px rgba(0,58,94,.1);padding:10px 12px 12px;display:flex;flex-direction:column;gap:10px}
+    .mobileBuyBar__top{display:flex;align-items:center;justify-content:space-between;gap:10px}
+    .mobileBuyBar__price{display:flex;align-items:baseline;gap:8px;min-width:0;flex-wrap:wrap}
+    .mobileBuyBar__current{font-weight:900;color:#ff9900;font-size:20px;line-height:1.1}
+    .mobileBuyBar__current small{font-size:12px;color:#5a6d80;font-weight:600}
+    .mobileBuyBar__old{font-size:12px;color:#94a3b8;text-decoration:line-through;font-weight:600}
+    .mobileBuyBar__badge{background:#fff3e0;color:#c2410c;border:1px solid #ffe0b2;font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap}
+    .mobileBuyBar__actions{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:8px;width:100%}
+    .mobileBuyBar__btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:44px;padding:0 10px;border-radius:12px;font-weight:800;font-size:12.5px;text-decoration:none;border:none;cursor:pointer;transition:all .2s ease;white-space:nowrap;line-height:1.2}
+    .mobileBuyBar__btn:active{transform:scale(.97)}
+    .mobileBuyBar__btn--tabby{background:linear-gradient(180deg,#ecfdf5 0%, #d1fae5 100%);color:#047857;border:1.5px solid #6ee7b7;box-shadow:0 2px 8px rgba(16,185,129,.12)}
+    .mobileBuyBar__btn--tabby:hover{background:linear-gradient(180deg,#d1fae5 0%, #a7f3d0 100%);color:#065f46;box-shadow:0 4px 12px rgba(16,185,129,.18)}
+    .mobileBuyBar__btn--tabby .mbLogo{width:20px;height:14px;background:#10b981;border-radius:4px;display:inline-flex;align-items:center;justify-content:center;overflow:hidden;flex:0 0 20px}
+    .mobileBuyBar__btn--tabby .mbLogo img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)}
+    .mobileBuyBar__btn--tamara{background:linear-gradient(180deg,#faf5ff 0%, #f3e8ff 100%);color:#7c3aed;border:1.5px solid #d8b4fe;box-shadow:0 2px 8px rgba(150,1,241,.1)}
+    .mobileBuyBar__btn--tamara:hover{background:linear-gradient(180deg,#f3e8ff 0%, #e9d5ff 100%);color:#6d28d9;box-shadow:0 4px 12px rgba(150,1,241,.16)}
+    .mobileBuyBar__btn--cta{background:linear-gradient(180deg,#ffb341 0%, #ff9900 100%);color:#003A5E;border:1px solid #e68a00;box-shadow:0 4px 12px rgba(255,153,0,.28)}
+    .mobileBuyBar__btn--cta:hover{color:#003A5E;box-shadow:0 6px 16px rgba(255,153,0,.36)}
+    @media(max-width:420px){
+      .mobileBuyBar__actions{grid-template-columns:1fr 1fr;gap:7px}
+      .mobileBuyBar__btn--cta{grid-column:1 / -1}
+      .mobileBuyBar__btn{font-size:11.5px;height:42px;padding:0 8px}
+    }
+    .phone-dotted{font-weight:800;color:rgb(99,99,3);text-decoration:none!important;border-bottom:1px dashed rgba(99,99,3,0.8);padding-bottom:2px;transition:all 0.2s ease;cursor:pointer;display:inline-flex;align-items:center;gap:5px;font-size:12px!important}
+    .alertMessage{border:1px solid rgba(103,103,1,0.15)!important;padding:14px 14px!important;border-radius:10px!important;background-color:rgb(255,255,184)}
+    .alertMessage h5{font-size:13.5px!important;font-weight:800;color:rgb(99,99,3);margin-bottom:0;letter-spacing:-0.2px}
+    .alertMessage ul li{font-size:12px!important;line-height:1.6!important;color:rgb(99,99,3)}
+    .alertMessage .iconAlert img{width:34px!important;height:34px!important}
+    .tabsProNav{position:sticky;top:0;z-index:40;background:#fff;border-bottom:none;margin-top:26px!important;padding-top:20px!important;padding-bottom:0!important;overflow:visible!important}
+    .tabsProNav #nav-tab{flex-wrap:nowrap!important;overflow-x:auto!important;overflow-y:hidden!important;scrollbar-width:none!important;-ms-overflow-style:none!important;gap:6px!important;border-bottom:1px solid #eef2f7!important;padding:0 4px 6px 4px!important;background:#fff!important;cursor:grab;user-select:none;-webkit-overflow-scrolling:touch;scroll-behavior:smooth}
+    .tabsProNav #nav-tab::-webkit-scrollbar{display:none!important;height:0;width:0}
+    .tabsProNav .nav-link{white-space:nowrap!important;font-size:13px!important;padding:11px 18px!important;border:1px solid #d6e8ff!important;border-bottom:3px solid transparent!important;border-radius:12px 12px 0 0!important;background:#f0f7ff!important;color:#334e68!important;font-weight:700!important;display:inline-flex!important;align-items:center!important;gap:6px!important;flex:0 0 auto!important;transition:all .22s ease!important;position:relative;top:1px}
+    .tabsProNav .nav-link:hover{background:#e3efff!important;border-color:#bcd9ff!important;color:#003A5E!important;transform:translateY(-1px)}
+    .tabsProNav .nav-link.active{background:linear-gradient(180deg,#e8f2ff 0%, #d6e8ff 100%)!important;color:#003A5E!important;border:1px solid #a8ccff!important;border-bottom:3px solid #3b82f6!important;box-shadow:0 -4px 12px rgba(59,130,246,.12), 0 4px 10px rgba(0,58,94,.04)!important;font-weight:800!important}
+    .tabsProNav::after{content:'';display:block;position:relative;height:20px;background:#fff;width:100%;margin-top:-1px;z-index:1;pointer-events:none}
+    .tabsProNav.is-stuck{box-shadow:0 8px 24px -16px rgba(0,58,94,.25)!important}
+    #nav-tabContent{margin-top:0!important;padding-top:2px!important;position:relative;z-index:0}
+    .contentSection{scroll-margin-top:130px;position:relative;padding-top:10px}
+    .contentSection + .contentSection{margin-top:48px!important;padding-top:28px;border-top:1px dashed #e2e8f0}
+    .sectionBadge{display:inline-flex;align-items:center;gap:8px;background:#f0f7ff;border:1px solid #bfdbfe;color:#1e40af;font-weight:800;font-size:12px;padding:6px 14px;border-radius:999px;margin-bottom:14px;letter-spacing:.2px}
+    .sectionBadge i{width:22px;height:22px;background:#003A5E;color:#fff;border-radius:50%;display:inline-flex;align-items:center;justify-content:center;font-size:12px}
+    @media (min-width:992px){
+      .sidebarWrapper{position:relative}
+      .boxBuy.is-fixed{position:fixed;top:86px;z-index:20;width:calc(33.333% - 32px);max-width:380px;box-shadow:0 16px 40px rgba(0,58,94,.14);animation:slideDown .3s ease}
+      .boxBuy.is-fixed + .includesPro{visibility:hidden}
+      .boxBuyPlaceholder{display:none}
+      .boxBuyPlaceholder.is-active{display:block}
+    }
+    @keyframes slideDown{from{transform:translateY(-10px);opacity:.9}to{transform:translateY(0);opacity:1}}
+    .tabbyAlert{background:#fff;border:1px solid #c8e6c9;border-radius:14px;overflow:hidden;cursor:pointer;transition:all .22s ease;box-shadow:0 2px 12px rgba(46,125,50,.06)}
+    .tabbyAlert:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(46,125,50,.12);border-color:#a5d6a7}
+    .tabbyAlert__top{display:flex;align-items:center;gap:12px;padding:12px 14px;background:linear-gradient(180deg,#fcfffd 0%, #f1f8f2 100%);border-bottom:1px dashed #c8e6c9}
+    .tabbyAlert__logo{width:58px;height:36px;flex:0 0 58px;background:linear-gradient(135deg,#1a9a4b 0%, #0d6d32 100%);border-radius:9px;display:flex;align-items:center;justify-content:center;padding:5px 8px;box-shadow:0 3px 10px rgba(13,109,50,.22)}
+    .tabbyAlert__logo img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)}
+    .tabbyAlert__title{font-weight:800;font-size:13.5px;color:#0f3d1f}
+    .tabbyAlert__badge{margin-right:auto;background:#e8f5e9;color:#1b5e20;border:1px solid #a5d6a7;font-size:11px;font-weight:800;padding:5px 11px;border-radius:999px;white-space:nowrap}
+    .tabbyAlert__instructions{display:flex;gap:14px;padding:10px 14px;background:#fff;flex-wrap:wrap}
+    .tabbyAlert__instructions span{font-size:11.5px;font-weight:700;color:#2e7d32;display:inline-flex;align-items:center;gap:5px}
+    .tabbyModal__installGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:8px;margin:14px 0}
+    .tabbyModal__inst{background:#fff;border:1px solid #e0e7ff;border-radius:12px;padding:10px 6px;text-align:center}
+    .tabbyModal__inst b{display:block;font-size:13px;color:#0f172a;font-weight:800}
+    .tabbyModal__inst small{display:block;font-size:10px;color:#64748b;margin-top:2px;font-weight:700}
+    .tabbyModal__inst:first-child{background:#e8f5e9;border-color:#a5d6a7}
+    .btnWhatsSupport{display:flex;align-items:center;justify-content:center;gap:8px;width:100%;background:#e8f7ed;border:1px solid #b7e9c6;color:#0f5d2a;font-weight:800;font-size:14px;padding:13px 16px;border-radius:12px;text-decoration:none;margin-top:16px;transition:.2s}
+    .btnWhatsSupport:hover{background:#d1f0d8;color:#0f5d2a}
+    .btnWhatsSupport--tamara{background:linear-gradient(180deg,#f3e8ff 0%, #ede4ff 100%);border:1px solid #c4b5fd;color:#5b21b6}
+    .btnWhatsSupport--tamara:hover{background:linear-gradient(180deg,#ede4ff 0%, #e9d5ff 100%);color:#4c1d95}
+    .tamaraAlert{background:#fff;border:1px solid #e9d5ff;border-radius:14px;overflow:hidden;cursor:pointer;transition:all .22s ease;box-shadow:0 2px 12px rgba(150,1,241,.08);margin-top:12px}
+    .tamaraAlert:hover{transform:translateY(-2px);box-shadow:0 8px 22px rgba(150,1,241,.14);border-color:#d8b4fe}
+    .tamaraAlert__top{display:flex;align-items:center;gap:12px;padding:12px 14px;background:linear-gradient(180deg,#faf5ff 0%, #f3e8ff 100%);border-bottom:1px dashed #e9d5ff}
+    .tamaraAlert__logo{width:58px;height:36px;flex:0 0 58px;background:linear-gradient(135deg,#9601F1 0%, #7c3aed 50%, #6d28d9 100%);border-radius:9px;display:flex;align-items:center;justify-content:center;padding:5px 8px;box-shadow:0 3px 10px rgba(150,1,241,.28);color:#fff;font-weight:900;font-size:13px;letter-spacing:-.3px}
+    .tamaraAlert__title{font-weight:800;font-size:13.5px;color:#4c1d95}
+    .tamaraAlert__badge{margin-right:auto;background:#f3e8ff;color:#6d28d9;border:1px solid #e9d5ff;font-size:11px;font-weight:800;padding:5px 11px;border-radius:999px;white-space:nowrap}
+    .tamaraAlert__instructions{display:flex;gap:14px;padding:10px 14px;background:#fff;flex-wrap:wrap}
+    .tamaraAlert__instructions span{font-size:11.5px;font-weight:700;color:#6d28d9;display:inline-flex;align-items:center;gap:5px}
+    .modal-body-scroll{max-height:min(70vh,520px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+    .btnDownloadSchedule{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(180deg,#e8f7ed 0%, #d1f0d8 100%);border:1px solid #b7e9c6;color:#0f5d2a;font-weight:800;font-size:14px;padding:13px 16px;border-radius:12px;text-decoration:none;margin-top:16px;transition:all .22s ease;box-shadow:0 4px 12px rgba(15,93,42,.12)}
+    .btnDownloadSchedule:hover{background:#003A5E;border-color:#003A5E;color:#fff;box-shadow:0 8px 20px rgba(0,58,94,.25)}
+    .reviewsCarouselWrap{background:#fff;border:1px solid #eef2f7;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(0,58,94,.06)}
+    .reviewsCarouselWrap .carousel-item img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:0}
+    .reviewsCarouselWrap .carousel-indicators button{width:8px;height:8px;border-radius:50%;background:#cbd5e1;border:none;opacity:.6}
+    .reviewsCarouselWrap .carousel-indicators .active{opacity:1;background:#003A5E;width:22px;border-radius:999px}
+    .reviewsCarouselWrap .carousel-control-prev,.reviewsCarouselWrap .carousel-control-next{width:44px;height:44px;background:rgba(255,255,255,.9);border-radius:50%;top:50%;transform:translateY(-50%);opacity:1;border:1px solid #eef2f7;box-shadow:0 4px 12px rgba(0,0,0,.08)}
+    .reviewsCarouselWrap .carousel-control-prev{right:auto;left:14px}
+    .reviewsCarouselWrap .carousel-control-next{left:auto;right:14px}
+
+    .suitableFor{padding:0!important;overflow:hidden!important;background:#fff!important;border:1px solid #e8eef5!important;border-radius:20px!important;box-shadow:0 10px 30px rgba(0,58,94,.05)}
+    .suitableFor > h4{padding:18px 20px 14px 20px!important;margin:0!important;border-bottom:1px solid #f1f5f9!important;background:linear-gradient(180deg,#fbfdff 0%, #f8fbff 100%)!important;font-weight:900!important;color:#0f172a!important;display:flex;align-items:center;gap:10px;font-size:16px!important}
+    .suitableIntro{padding:12px 20px!important;margin:0!important;font-size:13px;color:#64748b;line-height:1.7;font-weight:600;background:#fff}
+    .suitableGrid{padding:14px!important;gap:14px!important;display:grid;grid-template-columns:1fr 1fr}
+    @media(max-width:768px){.suitableGrid{grid-template-columns:1fr}}
+    .suitableBlock{border-radius:16px!important;padding:16px!important;position:relative!important;border-width:1.5px!important;box-shadow:0 4px 16px rgba(0,0,0,.02)}
+    .suitableBlock--yes{background:linear-gradient(180deg,#f0fdf4 0%, #f6fef8 100%)!important;border-color:#bbf7d0!important}
+    .suitableBlock--no{background:linear-gradient(180deg,#fef2f2 0%, #fffbfb 100%)!important;border-color:#fecaca!important}
+    .suitableBlock__head{font-size:13.5px!important;font-weight:900!important;margin-bottom:14px!important;display:flex;align-items:center;gap:8px;padding:8px 12px;border-radius:999px;width:fit-content}
+    .suitableBlock--yes .suitableBlock__head{background:#dcfce7;color:#166534!important;border:1px solid #bbf7d0}
+    .suitableBlock--no .suitableBlock__head{background:#fee2e2;color:#991b1b!important;border:1px solid #fecaca}
+    .suitableBlock ul{list-style:none;padding:0;margin:0;display:grid;gap:10px}
+    .suitableBlock li{display:flex;gap:10px;align-items:flex-start;font-size:12.8px;line-height:1.6;color:#1e293b;background:#fff;border:1px solid rgba(0,0,0,.04);border-radius:12px;padding:10px 12px;box-shadow:0 2px 8px rgba(0,0,0,.02);transition:.2s}
+    .suitableBlock li:hover{transform:translateY(-1px);box-shadow:0 4px 12px rgba(0,0,0,.04)}
+    .suitableBlock--yes li{border-color:#dcfce7}
+    .suitableBlock--no li{border-color:#fee2e2;color:#475569}
+
+    .instructorPro{
+      background:#fff;
+      border:1px solid #e8eef5;
+      border-radius:22px;
+      overflow:hidden;
+      box-shadow:0 12px 32px rgba(0,58,94,.07);
+      position:relative;
+    }
+    .instructorPro__cover{
+      height:110px;
+      background:linear-gradient(135deg,#b8d4f0 0%, #a8c8e8 25%, #c5daf5 55%, #d6e8f8 100%);
+      position:relative;overflow:hidden;
+    }
+    .instructorPro__coverPattern{
+      position:absolute;inset:0;
+      background-image:
+        radial-gradient(rgba(255,255,255,.45) 1.2px, transparent 1.6px),
+        radial-gradient(rgba(0,58,94,.08) 1px, transparent 1.4px);
+      background-size:22px 22px, 34px 34px;
+      background-position:0 0, 11px 11px;
+      opacity:.9;
+      animation:coverTextureMove 18s linear infinite;
+    }
+    .instructorPro__coverCanvas{
+      position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;
+    }
+    @keyframes coverTextureMove{
+      0%{background-position:0 0, 11px 11px}
+      100%{background-position:44px 44px, 55px 55px}
+    }
+    .instructorPro__body{padding:22px 22px 20px 22px;background:#fff}
+    .instructorPro__headerTop{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
+    .instructorPro__mainInfo{display:flex;gap:16px;align-items:center;flex:1}
+    .instructorPro__logoBox{
+      width:68px;height:68px;border-radius:16px;background:#fff;border:1px solid #eef2f7;
+      display:flex;align-items:center;justify-content:center;box-shadow:0 8px 20px rgba(0,0,0,.06);
+      overflow:hidden;padding:0;
+    }
+    .instructorPro__logoBox img{width:100%;height:100%;object-fit:cover;display:block}
+    .instructorPro__mainText h5{margin:0 0 4px 0;font-weight:900;color:#0f172a;font-size:20px;letter-spacing:-.3px}
+    .instructorPro__mainText p{margin:0;color:#64748b;font-size:13px;font-weight:600;line-height:1.6}
+    .instructorPro__badgeLive{background:#fff7ed;border:1px solid #fed7aa;color:#9a3412;font-size:11px;font-weight:800;padding:6px 12px;border-radius:999px;display:inline-flex;gap:6px;align-items:center;white-space:nowrap}
+    .instructorPro__statsNew{
+      display:grid;grid-template-columns:repeat(3,1fr);gap:10px;margin:0 0 18px 0;
+      background:#f8fbff;border:1px solid #e6efff;border-radius:14px;padding:12px;
+    }
+    .instructorPro__statsNew > div{text-align:center;position:relative;padding:6px 0}
+    .instructorPro__statsNew > div + div::before{content:'';position:absolute;right:0;top:20%;bottom:20%;width:1px;background:#e6efff}
+    .instructorPro__statsNew b{display:flex;align-items:center;justify-content:center;gap:5px;font-size:19px;font-weight:900;color:#0f172a;line-height:1}
+    .instructorPro__statsNew small{font-size:11px;color:#64748b;font-weight:700;margin-top:5px;display:block}
+    .instructorPro__bioNew{
+      background:linear-gradient(180deg,#ffffff 0%, #fbfdff 100%);border:1px solid #eaf0f8;border-radius:14px;padding:14px 16px;
+      font-size:13.5px;line-height:1.9;color:#334155;text-align:justify;
+    }
+    .instructorPro__bioNew b{color:#0f172a;font-weight:800}
+    .instructorTeamGrid{display:grid;grid-template-columns:repeat(2,1fr);gap:12px;margin-top:18px}
+    @media(max-width:991px){
+      .instructorTeamGrid{grid-template-columns:1fr}
+      .instructorTeamGrid .instructorTeamCard{grid-column:auto !important}
+    }
+    .instructorTeamCard{
+      background:#fff;border:1px solid #eef2f7;border-radius:14px;padding:13px 14px;
+      display:flex;gap:12px;align-items:flex-start;transition:.2s;box-shadow:0 2px 10px rgba(0,0,0,.02)
+    }
+    .instructorTeamCard:hover{transform:translateY(-2px);box-shadow:0 8px 18px rgba(0,58,94,.06);border-color:#dbeafe}
+    .instructorTeamCard__avatar{width:44px;height:44px;border-radius:12px;overflow:hidden;flex:0 0 44px;border:1px solid #eef2f7;background:#f1f5f9}
+    .instructorTeamCard__avatar img{width:100%;height:100%;object-fit:cover;display:block}
+    .instructorTeamCard__info b{display:block;font-size:13.5px;font-weight:800;color:#0f172a;margin-bottom:2px}
+    .instructorTeamCard__info span{display:block;font-size:11.5px;color:#64748b;line-height:1.5;font-weight:600}
+    .instructorTeamCard__info small{display:inline-flex;margin-top:6px;background:#f0f7ff;border:1px solid #dbeafe;color:#1e40af;font-size:10px;font-weight:700;padding:3px 8px;border-radius:999px}
+    .instructorPro__tagsNew{display:flex;gap:8px;flex-wrap:wrap;margin-top:16px}
+    .instructorPro__tagsNew span{
+      font-size:11.5px;font-weight:700;background:#fff;border:1px solid #e2e8f0;padding:7px 12px;border-radius:999px;color:#334155;
+      display:inline-flex;gap:6px;align-items:center
+    }
+
+    .resultsHeaderPro{
+      background:linear-gradient(180deg,#ffffff 0%, #fcfdff 100%);
+      border:1px solid #e6eef8;
+      border-radius:18px;
+      padding:0;
+      overflow:hidden;
+      box-shadow:0 10px 30px rgba(0,58,94,.06);
+      position:relative;
+      margin-bottom:18px;
+    }
+    .resultsHeaderPro__inner{padding:20px;display:flex;justify-content:space-between;gap:18px;flex-wrap:wrap;align-items:center}
+    .resultsHeaderPro__left{display:flex;gap:16px;align-items:flex-start;flex:1;min-width:280px}
+    .resultsHeaderPro__icon{
+      width:54px;height:54px;border-radius:14px;
+      background:linear-gradient(145deg,#0f4c75 0%, #003A5E 50%, #1e6fb8 100%);
+      color:#fff;display:flex;align-items:center;justify-content:center;font-size:22px;flex:0 0 54px;
+      box-shadow:0 8px 18px rgba(0,58,94,.22), inset 0 1px 0 rgba(255,255,255,.15);
+      position:relative;
+    }
+    .resultsHeaderPro__icon::after{
+      content:'';position:absolute;inset:3px;border-radius:11px;border:1px solid rgba(255,255,255,.12);pointer-events:none;
+    }
+    .resultsHeaderPro__titleRow{display:flex;align-items:center;gap:12px;flex-wrap:wrap;margin-bottom:4px}
+    .resultsHeaderPro__titleRow h5{margin:0;font-weight:900;color:#0f172a;font-size:18px}
+    .resultsHeaderPro__growth{
+      background:linear-gradient(135deg,#dcfce7 0%, #f0fdf4 100%);border:1px solid #bbf7d0;color:#166534;
+      font-size:11.5px;font-weight:800;padding:5px 10px;border-radius:999px;display:inline-flex;gap:6px;align-items:center
+    }
+    .resultsHeaderPro__left p{margin:0;color:#64748b;font-size:13px;font-weight:600;line-height:1.6}
+    .resultsHeaderPro__badges{display:flex;gap:8px;margin-top:10px;flex-wrap:wrap}
+    .resultsHeaderPro__badges span{
+      font-size:11px;font-weight:700;background:#f8fafc;border:1px solid #e2e8f0;color:#334155;padding:5px 10px;border-radius:999px;display:inline-flex;gap:5px;align-items:center
+    }
+    .resultsHeaderPro__stats{display:flex;gap:12px;align-items:center}
+    .resultsHeaderPro__stat{
+      background:#fff;border:1px solid #e6eef8;border-radius:14px;padding:14px 16px;min-width:132px;
+      display:flex;gap:12px;align-items:center;box-shadow:0 4px 14px rgba(0,58,94,.04);
+    }
+    .resultsHeaderPro__statIcon{
+      width:42px;height:42px;border-radius:11px;background:#f0f7ff;border:1px solid #dbeafe;color:#1d4ed8;
+      display:flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 42px;
+    }
+    .resultsHeaderPro__stat b{display:block;font-size:22px;font-weight:900;color:#0f172a;line-height:1}
+    .resultsHeaderPro__stat small{display:block;font-size:11px;color:#64748b;font-weight:700;margin-top:2px}
+    @media(max-width:768px){
+      .resultsHeaderPro__inner{flex-direction:column;align-items:flex-start}
+      .resultsHeaderPro__stats{width:100%;display:grid;grid-template-columns:1fr 1fr}
+      .resultsHeaderPro__stat{min-width:0}
+    }
+
+    .finalCtaPro{
+      position:relative;
+      margin-top:36px;
+      border-radius:24px;
+      overflow:hidden;
+      background:#020a18;
+      border:1px solid rgba(255,255,255,.08);
+      box-shadow:0 20px 60px rgba(2,10,24,.35);
+      isolation:isolate;
+    }
+    .finalCtaPro #finalCtaCanvas{position:absolute;inset:0;width:100%;height:100%;z-index:0;opacity:.85}
+    .finalCtaPro__bgOrbs{position:absolute;inset:0;z-index:1;pointer-events:none;overflow:hidden}
+    .finalCtaPro__bgOrbs .orb{position:absolute;border-radius:50%;filter:blur(32px);mix-blend:screen;opacity:.7;animation:orbFloat 14s ease-in-out infinite}
+    .finalCtaPro__bgOrbs .orb1{width:520px;height:520px;left:-120px;top:-180px;background:radial-gradient(circle at 30% 30%, #1d6fa5 0%, #0a2f4f 55%, transparent 70%)}
+    .finalCtaPro__bgOrbs .orb2{width:460px;height:460px;right:-100px;top:-60px;background:radial-gradient(circle at 50% 50%, #ff9900 0%, #ff6a00 35%, transparent 70%);opacity:.32}
+    .finalCtaPro__bgOrbs .orb3{width:680px;height:680px;left:30%;bottom:-320px;background:radial-gradient(circle at 50% 50%, #0ea5e9 0%, #003A5E 55%, transparent 72%);opacity:.42}
+    @keyframes orbFloat{0%,100%{transform:translate3d(0,0,0) scale(1)}33%{transform:translate3d(18px,-22px,0) scale(1.06)}66%{transform:translate3d(-14px,16px,0) scale(.96)}}
+    .finalCtaPro__content{
+      position:relative;z-index:2;
+      display:flex;justify-content:space-between;gap:28px;align-items:center;
+      padding:30px 28px;
+      background:linear-gradient(180deg, rgba(255,255,255,.06) 0%, rgba(255,255,255,.02) 100%);
+    }
+    .finalCtaPro__left{flex:1;min-width:280px;max-width:600px}
+    .finalCtaPro__badge{
+      display:inline-flex;align-items:center;gap:7px;
+      background:rgba(255,153,0,.12);border:1px solid rgba(255,153,0,.28);color:#ffb341;
+      font-size:12px;font-weight:800;padding:7px 12px;border-radius:999px;margin-bottom:14px;
+    }
+    .finalCtaPro__left h3{
+      margin:0 0 8px 0;font-weight:900;color:#fff;font-size:clamp(22px,3vw,28px);line-height:1.25;
+    }
+    .finalCtaPro__left > p{
+      margin:0;color:rgba(255,255,255,.82);font-size:13.5px;line-height:1.7;font-weight:500;
+    }
+    .finalCtaPro__right{flex:0 0 300px;display:flex;flex-direction:column;gap:10px;align-items:stretch;text-align:center}
+    .finalCtaPro__btnPrimary{
+      background:linear-gradient(180deg,#ffd07a 0%, #ffb341 10%, #ff9900 100%);
+      color:#1a2a3a;font-weight:900;font-size:15px;padding:15px 22px;border-radius:14px;text-decoration:none;
+      display:inline-flex;align-items:center;justify-content:center;gap:10px;
+      border:1px solid #ffb341;box-shadow:0 12px 28px rgba(255,153,0,.32);
+      transition:all .24s ease;
+    }
+    .finalCtaPro__btnPrimary:hover{transform:translateY(-2px);box-shadow:0 18px 36px rgba(255,153,0,.38);color:#1a2a3a}
+    .finalCtaPro__btnSub{font-size:11.5px;color:rgba(255,255,255,.62);font-weight:600}
+    @media(max-width:992px){
+      .finalCtaPro__content{flex-direction:column;align-items:stretch;padding:24px 20px}
+      .finalCtaPro__right{flex:1 1 auto}
+    }
+
+    .privateIntroBox{
+      background:linear-gradient(135deg,#f8fbff 0%, #ffffff 50%, #fffbf0 100%);
+      border:1px solid #e6eef8;
+      border-radius:20px;
+      padding:22px;
+      margin-top:18px;
+      box-shadow:0 8px 24px rgba(0,58,94,.04);
+      position:relative;overflow:hidden;
+    }
+    .privateIntroBox::before{
+      content:'';position:absolute;top:0;right:0;width:4px;height:100%;
+      background:linear-gradient(180deg,#003A5E 0%, #ff9900 100%);
+    }
+    .privateIntroBox h4{font-weight:900;color:#0f172a;font-size:18px;margin-bottom:10px;display:flex;align-items:center;gap:10px}
+    .privateIntroBox h4 i{width:36px;height:36px;background:#003A5E;color:#fff;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:18px}
+    .privateIntroBox p{font-size:13.5px;line-height:1.9;color:#334155;margin-bottom:12px}
+    .privateIntroBox .highlightLink{color:#0ea5e9;font-weight:800;text-decoration:none;border-bottom:1px dashed #0ea5e9}
+    .privateFeaturesGrid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:14px}
+    @media(max-width:768px){.privateFeaturesGrid{grid-template-columns:1fr}}
+    .privateFeatureItem{
+      background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:12px 14px;display:flex;gap:10px;align-items:flex-start;
+      transition:.2s;box-shadow:0 2px 8px rgba(0,0,0,.02)
+    }
+    .privateFeatureItem:hover{transform:translateY(-1px);box-shadow:0 6px 16px rgba(0,58,94,.06);border-color:#dbeafe}
+    .privateFeatureItem i{width:32px;height:32px;border-radius:9px;background:#f0f7ff;color:#003A5E;display:inline-flex;align-items:center;justify-content:center;font-size:14px;flex:0 0 32px;border:1px solid #dbeafe}
+    .privateFeatureItem b{display:block;font-size:12.5px;color:#0f172a;font-weight:800;line-height:1.4;margin-bottom:2px}
+    .privateFeatureItem span{font-size:11.5px;color:#64748b;line-height:1.5}
+    .privateAudienceGrid{display:grid;grid-template-columns:repeat(4,1fr);gap:10px;margin-top:12px}
+    @media(max-width:768px){.privateAudienceGrid{grid-template-columns:1fr 1fr}}
+    .privateAudienceItem{background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:14px;text-align:center;transition:.2s}
+    .privateAudienceItem i{width:40px;height:40px;background:#f8fafc;border:1px solid #eef2f7;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;color:#003A5E;font-size:18px;margin-bottom:8px}
+    .privateAudienceItem b{font-size:12.5px;color:#0f172a;display:block;font-weight:800}
+    .privatePillarsGrid{display:grid;grid-template-columns:1fr;gap:12px;margin-top:12px}
+    .privatePillar{border:1px solid #eef2f7;border-radius:14px;padding:16px;background:#fff;display:flex;gap:14px}
+    .privatePillar__num{width:36px;height:36px;border-radius:10px;background:#003A5E;color:#fff;display:flex;align-items:center;justify-content:center;font-weight:900;font-size:14px;flex:0 0 36px}
+    .privatePillar b{font-size:14px;color:#0f172a;font-weight:800;display:block;margin-bottom:4px}
+    .privatePillar span{font-size:12.5px;color:#475569;line-height:1.7}
+    .whyPrivateBox{background:linear-gradient(180deg,#fff 0%, #f8fbff 100%);border:1px dashed #bfdbfe;border-radius:14px;padding:16px;margin-top:16px}
+    .whyPrivateBox ul{list-style:none;padding:0;margin:0;display:grid;gap:8px}
+    .whyPrivateBox li{display:flex;gap:8px;font-size:12.8px;color:#334155;line-height:1.6}
+    .whyPrivateBox li i{color:#16a34a;margin-top:2px}
+
+    .includesOverview__grid{display:grid;grid-template-columns:1fr 1fr;gap:10px;margin-top:12px}
+    @media (max-width:768px){.includesOverview__grid{grid-template-columns:1fr}}
+    .includesOverview__item{background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:14px;display:flex;gap:12px;align-items:flex-start}
+    .includesOverview__item i{width:38px;height:38px;border-radius:10px;background:#f8fafc;border:1px solid #eef2f7;display:inline-flex;align-items:center;justify-content:center;color:#003A5E;font-size:18px;flex:0 0 38px}
+    .includesOverview__item b{display:block;font-size:13.5px;color:#0f172a;font-weight:800;margin-bottom:3px}
+    .includesOverview__item span{font-size:12.5px;color:#475569;line-height:1.5}
+    .desktopStickyBar{position:fixed;left:0;right:0;top:0;z-index:55;background:#fff;border-bottom:1px solid #e9eef3;transform:translateY(-100%);transition:transform .28s ease;box-shadow:0 8px 24px rgba(0,58,94,.08)}
+    .desktopStickyBar.is-visible{transform:translateY(0)}
+    .desktopStickyBar__inner{max-width:1260px;margin:0 auto;display:flex;align-items:center;justify-content:space-between;gap:16px;padding:12px 20px}
+    .desktopStickyBar__title{font-weight:700;color:var(--brand-navy);font-size:15px}
+    .desktopStickyBar__price{font-weight:800;color:var(--brand-navy);font-size:16px;display:flex;gap:8px;align-items:center}
+    .desktopStickyBar__price del{color:#9aa8b5;font-weight:500;font-size:14px}
+    .desktopStickyBar__cta{background:var(--brand-orange);color:var(--brand-navy);font-weight:800;padding:10px 22px;border-radius:10px;text-decoration:none;display:inline-flex;gap:6px;align-items:center}
+    .scheduleGrid{display:grid;grid-template-columns:repeat(3,1fr);gap:12px}
+    @media(max-width:768px){.scheduleGrid{grid-template-columns:1fr}}
+    .scheduleItem{background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:14px}
+    .scheduleItem__week{font-size:11px;font-weight:800;color:#fff;background:#003A5E;border-radius:999px;padding:3px 8px;display:inline-block;margin-bottom:8px}
+    .scheduleItem__title{font-weight:800;color:#0f172a;font-size:13.5px;display:flex;gap:6px;align-items:center;margin-bottom:4px}
+    .scheduleItem__meta{font-size:11.5px;color:#64748b}
+    .freeTestCard{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:14px 16px;margin-bottom:4px}
+    .freeTestCard__icon{width:40px;height:40px;border-radius:10px;background:#e3f2fd;color:#1565c0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 40px}
+    .freeTestCard b{display:block;font-size:13.5px;color:#0f172a}
+    .freeTestCard span{font-size:11.5px;color:#64748b}
+    .freeTestCard__btn{margin-right:auto;background:#003A5E;color:#fff;font-size:11px;font-weight:700;padding:7px 12px;border-radius:8px;text-decoration:none;white-space:nowrap}
+
+    /* سعر أكبر في السايدبار */
+    .boxBuy .priceCurrent{font-size:28px!important;font-weight:900;color:#ff9900;line-height:1.1}
+    .boxBuy .priceOld{font-size:14px;color:#8a9bb0;text-decoration:line-through}
+    .boxBuy .priceSave{font-size:12px;color:#2e7d32;font-weight:700}
+  </style>
+</head>
+<body>
+<div class="coursePg" style="padding-top: 70px; padding-bottom: 70px;">
+  <div class="container">
+    <div class="row g-4">
+      <div class="col-lg-8 contentCour">
+        <nav class="breadcrumbPro" aria-label="breadcrumb">
+          <ol class="breadcrumb mb-2">
+            <li class="breadcrumb-item"><a href="#"><i class="bi bi-house-door me-1"></i> الرئيسية</a></li>
+            <li class="breadcrumb-item"><a href="#">دورة ستيب</a></li>
+            <li class="breadcrumb-item active" aria-current="page">ستيب البرايفت - تجربة فردية 100%</li>
+          </ol>
+        </nav>
+        <div class="courseTitle">
+          <span class="badge bg-light text-dark border mb-2" style="font-weight:700;padding:6px 12px;border-radius:999px;font-size:12px"><i class="bi bi-patch-check-fill" style="color:#003A5E"></i> برايفت فردي 100% - أكاديمية عايد</span>
+          <h2 id="courseTitleText">دورة ستيب البرايفت: تجربة تعليمية فردية 100% من أكاديمية عايد</h2>
+          <div class="courseMetaPro" id="courseMetaPro" style="display:flex;flex-wrap:wrap;align-items:center;gap:10px 24px;margin:16px 0 8px 0;padding:0;background:transparent;border:none"></div>
+        </div>
+        <div class="youtube-container" id="courseYoutube" data-videoid="" style="margin-top: 30px !important;" role="button" tabindex="0" aria-label="تشغيل الفيديو">
+          <div class="youtube-thumbnail"></div>
+          <div class="play-button" aria-hidden="true"></div>
+        </div>
+        <div class="dualCtaSection" style="margin-top: 30px !important; margin-bottom: 30px !important;">
+          <div class="dualCta">
+            <a href="#buyBox" class="btnPro btnPro-primary" id="btnSubscribe"><i class="bi bi-bag-check-fill"></i> اشترك برايفت - <span id="ctaPrice">1299</span> ر.س</a>
+            <a href="#nav-curriculum" id="btnShowCurriculum" class="btnPro btnPro-secondary"><i class="bi bi-collection-play-fill"></i> استعرض محتوى الدورة</a>
+          </div>
+          <div class="text-right mt-2" style="font-size:11px;color:#6b7a8a;font-weight:600"><i class="bi bi-lock-fill"></i> دفع آمن 100% عبر تابي - مدى - Apple Pay - وصول فوري</div>
+        </div>
+         <hr style="color: #acacac;">
+              <div class="alertMessage">
+                <div class="row align-items-center">
+                  <div class="col-md-2 d-none d-lg-block">
+                    <div class="iconAlert" style="width: 100%; text-align: center; border-left: 1px solid rgb(103, 103, 1,0.15); line-height: 36px;">
+                      <img src="emergency.png" alt="" class="img-fluid" width="34" height="34">
+                    </div>
+                  </div>
+                  <div class="col-md-10">
+                    <h5>ارشادات قبل الاشتراك في الدورة:</h5>
+                    <ul style="margin-bottom: 0px; margin-top: 6px; display:grid; gap:4px;">
+                      <li> يفضل ان يكون الاختبار بعد انتهاء فترة الشرح بفترة من اسبوعين لشهر.</li>
+                      <li> يفضل لو مستواك اقل من مبتدأ ان تتواصل مع خدمة الدعم الفني على الرقم <a href="tel:920019606" class="phone-dotted" title="اضغط للاتصال"><i class="bi bi-telephone-fill" style="font-size:12px;"></i> 920019606</a> لتحديد مستواك.</li>
+                    </ul>
+                  </div>
+                </div>
+              </div>
+              <div class="tabbyAlert d-lg-none" data-bs-toggle="modal" data-bs-target="#tabbyModal" title="اضغط لمعرفة شروط التقسيط" style="margin-top:14px">
+                <div class="tabbyAlert__top">
+                  <span class="tabbyAlert__logo"><img src="tabby_logo_transparent.png" alt="tabby"></span>
+                  <span class="tabbyAlert__title">ادفع بالتقسيط مع تابي</span>
+                  <span class="tabbyAlert__badge">قسّط الآن</span>
+                </div>
+                <div class="tabbyAlert__instructions">
+                  <span><i class="bi bi-check-circle-fill"></i> بدون فوائد</span>
+                  <span><i class="bi bi-shield-check"></i> متوافق مع الشريعة</span>
+                  <span><i class="bi bi-lightning-charge-fill"></i> تفعيل فوري</span>
+                </div>
+              </div>
+              <div class="tamaraAlert d-lg-none" data-bs-toggle="modal" data-bs-target="#tamaraModal" title="اضغط لمعرفة شروط التقسيط مع تمارا" style="margin-top:10px">
+                <div class="tamaraAlert__top">
+                  <span class="tamaraAlert__logo">تمارا</span>
+                  <span class="tamaraAlert__title">ادفع بالتقسيط مع تمارا</span>
+                  <span class="tamaraAlert__badge">قسّط الآن</span>
+                </div>
+                <div class="tamaraAlert__instructions">
+                  <span><i class="bi bi-check-circle-fill"></i> بدون فوائد</span>
+                  <span><i class="bi bi-shield-check"></i> متوافق مع الشريعة</span>
+                  <span><i class="bi bi-lightning-charge-fill"></i> تفعيل فوري</span>
+                </div>
+              </div>
+
+        <div class="contenty" style="margin-top: 60px;">
+          <nav class="tabsProNav" id="tabsProNav">
+            <div class="nav nav-tabs" id="nav-tab" role="tablist">
+              <button class="nav-link active" id="nav-overview-tab" data-scroll-target="#nav-overview" type="button" role="tab"><i class="bi bi-eye"></i> نظرة عامة</button>
+              <button class="nav-link" id="nav-curriculum-tab" data-scroll-target="#nav-curriculum" type="button" role="tab"><i class="bi bi-collection-play"></i> محتوى الدورة</button>
+              <button class="nav-link" id="nav-instructor-tab" data-scroll-target="#nav-instructor" type="button" role="tab"><i class="bi bi-person-badge"></i> نبذة عن المدربين</button>
+              <button class="nav-link" id="nav-schedule-tab" data-scroll-target="#nav-schedule" type="button" role="tab"><i class="bi bi-calendar-week"></i> جدول المحاضرات</button>
+              <button class="nav-link" id="nav-freeTests-tab" data-scroll-target="#nav-freeTests" type="button" role="tab"><i class="bi bi-file-earmark-check"></i> الاختبارات المجانية</button>
+              <button class="nav-link" id="nav-results-tab" data-scroll-target="#nav-results" type="button" role="tab"><i class="bi bi-trophy"></i> نتائج الطلاب</button>
+              <button class="nav-link" id="nav-faq-tab" data-scroll-target="#nav-faq" type="button" role="tab"><i class="bi bi-question-circle"></i> الأسئلة الشائعة</button>
+            </div>
+          </nav>
+          <div class="pt-1" id="nav-tabContent">
+
+            <div class="contentSection" id="nav-overview">
+              <div class="sectionBadge"><i class="bi bi-eye"></i> نظرة عامة - البرايفت الفردي</div>
+
+              <div class="privateIntroBox">
+                <h4><i class="bi bi-stars"></i> دورة ستيب البرايفت: تجربة تعليمية فردية 100%</h4>
+                <p>تمثّل ستيب البرايفت الخيار الأمثل لكل طالب يبحث عن <b>أفضل دورة ستيب مبنية بالكامل على مستواه الشخصي</b>. فبدلًا من المجموعات، يحصل الطالب في دورة عايد ستيب البرايفت على مدرّس خاص يتابعه وحده، ويصمّم له خطة دراسية تُحوّل نقاط ضعفه إلى درجات حقيقية.</p>
+                <p>قبل بدء الرحلة، يمكن للطالب تجربة <a href="#" class="highlightLink">اختبار تحديد المستوى المجاني ستيب</a> لاكتشاف نقاط ضعفه، ثم البناء عليها ضمن خطة الدورة الفردية.</p>
+                
+                <div style="background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:14px;margin-top:12px">
+                  <b style="font-size:13.5px;color:#0f172a;display:flex;align-items:center;gap:8px;margin-bottom:10px"><i class="bi bi-gift-fill" style="color:#ff9900"></i> أهم مزايا ستيب البرايفت</b>
+                  <div class="privateFeaturesGrid" id="privateFeaturesGrid"></div>
+                  <div style="margin-top:12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#166534;font-weight:700"><i class="bi bi-stopwatch-fill"></i> وصول لمدة 180 يومًا (6 أشهر كاملة) لمراجعة كل المواد التدريبية - سعر الدورة: <span id="overviewPrice">1299</span> ريال فقط</div>
+                </div>
+              </div>
+
+              <div class="privateIntroBox" style="margin-top:16px;background:#fff">
+                <h4><i class="bi bi-people-fill"></i> لمن هذه الدورة؟</h4>
+                <div class="privateAudienceGrid" id="privateAudienceGrid"></div>
+                <div style="margin-top:12px;background:#fff7ed;border:1px solid #fed7aa;border-radius:10px;padding:10px 12px;font-size:12px;color:#9a3412"><i class="bi bi-info-circle-fill"></i> لمن لا يملك الوقت الكافي لتأسيس لغوي موسّع، تتوفر أيضًا <b>دورات تأسيس اللغة الإنجليزية</b> لدى الأكاديمية كخطوة تمهيدية قبل باقة البرايفت.</div>
+              </div>
+
+              <div class="privateIntroBox" style="margin-top:16px">
+                <h4><i class="bi bi-layers-fill"></i> محاور الدورة التدريبية</h4>
+                <div class="privatePillarsGrid" id="privatePillarsGrid"></div>
+
+                <div class="whyPrivateBox">
+                  <b style="font-size:13px;color:#0f172a;display:flex;gap:6px;margin-bottom:8px"><i class="bi bi-patch-check-fill" style="color:#003A5E"></i> لماذا ستيب البرايفت تحديدًا؟</b>
+                  <ul id="whyPrivateList"></ul>
+                </div>
+              </div>
+
+              <div class="suitableFor" id="suitableFor" style="margin-top:20px">
+                <h4><i class="bi bi-check2-square" style="color:#ff9900"></i> هل البرايفت مناسب لي ولا لا؟</h4>
+                <p class="suitableIntro">قرارك في 30 ثانية — البرايفت مصمم لك إذا كنت تريد خطة فردية 100% وليس مجرد فيديوهات مسجلة.</p>
+                <div class="suitableGrid">
+                  <div class="suitableBlock suitableBlock--yes">
+                    <div class="suitableBlock__head"><i class="bi bi-check-circle-fill"></i> البرايفت مناسب لك إذا كنت:</div>
+                    <ul id="suitableYes"></ul>
+                  </div>
+                  <div class="suitableBlock suitableBlock--no">
+                    <div class="suitableBlock__head"><i class="bi bi-dash-circle"></i> قد لا يناسبك إذا كنت:</div>
+                    <ul id="suitableNo"></ul>
+                  </div>
+                </div>
+              </div>
+
+              <div class="courseExplainBox" style="margin-top:20px;background:#fbfcfe;border:1px solid #eef2f7;border-radius:16px;padding:20px">
+                <h4 style="font-weight:800;color:#003A5E;font-size:15px;margin-bottom:8px"><i class="bi bi-journal-text" style="color:#003A5E"></i> الدورة تشتمل على</h4>
+                <div class="includesOverview__grid" id="includesOverviewGrid"></div>
+              </div>
+            </div>
+
+            <div class="contentSection" id="nav-curriculum">
+              <div class="sectionBadge"><i class="bi bi-collection-play"></i> محتوى الدورة المفصل</div>
+              <div class="contentPro" id="courseContentSection">
+                <div class="contentPro__header"><div class="contentPro__title"><i class="bi bi-journal-richtext"></i> محتوى الدورة المفصل</div><div class="contentPro__meta" id="curriculumMeta"></div></div>
+                <div class="accordion accordionPro" id="courseAccordion" style="padding:14px;background:#fff"></div>
+              </div>
+            </div>
+
+            <div class="contentSection" id="nav-instructor">
+              <div class="sectionBadge"><i class="bi bi-person-badge"></i> نخبة مدربين البرايفت</div>
+              <div class="instructorPro" style="margin-top:0">
+                <div class="instructorPro__cover">
+                  <div class="instructorPro__coverPattern"></div>
+                  <canvas class="instructorPro__coverCanvas" id="instructorCoverCanvas"></canvas>
+                </div>
+                <div class="instructorPro__body">
+                  <div class="instructorPro__headerTop">
+                    <div class="instructorPro__mainInfo">
+                      <div class="instructorPro__logoBox" id="mainInstructorAvatar"></div>
+                      <div class="instructorPro__mainText">
+                        <h5 id="instructorTeamTitle">فريق ستيب البرايفت</h5>
+                        <p id="instructorTeamSubtitle">مدرّس خاص يتابعك وحدك • خطة فردية 100% • متابعة 24 ساعة</p>
+                      </div>
+                    </div>
+                    <span class="instructorPro__badgeLive"><i class="bi bi-dot" style="color:#16a34a;font-size:20px"></i> متاح الآن للبرايفت</span>
+                  </div>
+
+                  <div class="instructorPro__statsNew" id="instructorStats"></div>
+                  <div class="instructorPro__bioNew" id="instructorBio"></div>
+                  <div class="instructorTeamGrid" id="instructorTeamGrid"></div>
+                  <div class="instructorPro__tagsNew" id="instructorTags"></div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contentSection" id="nav-schedule">
+              <div class="sectionBadge"><i class="bi bi-calendar-week"></i> جدول المحاضرات المباشرة</div>
+              <div class="contentPro" style="margin-top:0">
+                <div class="contentPro__header"><div class="contentPro__title"><i class="bi bi-calendar-week"></i> جدول المحاضرات البرايفت</div><div class="contentPro__meta"><span><i class="bi bi-camera-video"></i> 12 محاضرة فردية على Zoom</span><span><i class="bi bi-clock"></i> بمرونة تامة حسب وقتك</span></div></div>
+                <div style="padding:18px">
+                  <div class="scheduleGrid" id="scheduleGrid"></div>
+                  <div style="margin-top:14px;background:#f8fafc;border:1px dashed #e2e8f0;border-radius:10px;padding:10px 12px;font-size:12px;color:#475569;display:flex;gap:8px"><i class="bi bi-info-circle"></i><span>جميع المحاضرات فردية 100% - أنت وحدك مع المدرس - يتم تحديد المواعيد بمرونة حسب وقتك عبر مستشار تدريبي.</span></div>
+                  <a href="#" class="btnDownloadSchedule" id="btnDownloadSchedule"><i class="bi bi-file-earmark-pdf-fill"></i> حمّل خطة البرايفت PDF <i class="bi bi-download"></i></a>
+                </div>
+              </div>
+            </div>
+
+            <div class="contentSection" id="nav-freeTests">
+              <div class="sectionBadge"><i class="bi bi-file-earmark-check"></i> الاختبارات المجانية</div>
+              <div class="contentPro" style="margin-top:0">
+                <div class="contentPro__header"><div class="contentPro__title"><i class="bi bi-file-earmark-check"></i> الاختبارات المجانية</div><div class="contentPro__meta"><span>3 اختبارات تجريبية</span></div></div>
+                <div style="padding:14px;display:grid;gap:10px" id="freeTestsList"></div>
+              </div>
+            </div>
+
+            <div class="contentSection" id="nav-results">
+              <div class="sectionBadge"><i class="bi bi-trophy"></i> قصص نجاح طلابنا</div>
+              <div style="margin-top:0">
+                <div class="resultsHeaderPro">
+                  <div class="resultsHeaderPro__inner">
+                    <div class="resultsHeaderPro__left">
+                      <div class="resultsHeaderPro__icon"><i class="bi bi-award-fill"></i></div>
+                      <div style="flex:1">
+                        <div class="resultsHeaderPro__titleRow">
+                          <h5>آراء ونتائج طلابنا المتفوقين - من 60 إلى 90+ </h5>
+                        </div>
+                      </div>
+                    </div>
+                    <div class="resultsHeaderPro__stats">
+                      <div class="resultsHeaderPro__stat">
+                        <div class="resultsHeaderPro__statIcon"><i class="bi bi-bullseye"></i></div>
+                        <div><b id="avgScore">85+</b><small>متوسط الدرجات</small></div>
+                      </div>
+                      <div class="resultsHeaderPro__stat">
+                        <div class="resultsHeaderPro__statIcon" style="background:#fff7ed;border-color:#fed7aa;color:#ea580c"><i class="bi bi-people-fill"></i></div>
+                        <div><b id="successStories">1,240</b><small>قصة نجاح</small></div>
+                      </div>
+                    </div>
+                  </div>
+                </div>
+
+                <div class="reviewsCarouselWrap">
+                  <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
+                    <div class="carousel-indicators" id="reviewsIndicators"></div>
+                    <div class="carousel-inner" id="reviewsInner"></div>
+                    <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev"><i class="bi bi-chevron-right"></i></button>
+                    <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next"><i class="bi bi-chevron-left"></i></button>
+                  </div>
+                </div>
+              </div>
+            </div>
+
+            <div class="contentSection" id="nav-faq">
+              <div class="sectionBadge"><i class="bi bi-question-circle"></i> الأسئلة الشائعة</div>
+              <div class="contentPro" style="margin-top:0">
+                <div class="contentPro__header"><div class="contentPro__title"><i class="bi bi-question-circle"></i> الأسئلة الشائعة عن البرايفت</div></div>
+                <div class="accordion accordionPro" id="faqAccordion" style="padding:14px"></div>
+              </div>
+            </div>
+
+          </div>
+        </div>
+
+      </div>
+
+      <div class="col-lg-4 d-none d-lg-block sidebarWrapper">
+        <div class="sidebarCourseImg"><img src="دورة_ستيب_عايد_الاساسية.webp" alt="صورة الدورة" id="sidebarCourseImg"></div>
+
+        <div class="boxBuyPlaceholder" id="boxBuyPlaceholder"></div>
+        <div class="boxBuy mt-3" id="buyBox">
+          <div class="d-flex align-items-center justify-content-between mb-3">
+            <h6 class="m-0" style="font-weight:800;color:#003A5E"><i class="bi bi-mortarboard"></i> تفاصيل اشتراك البرايفت</h6>
+            <span class="badge" style="background:#fff3e0;color:#e65100;border:1px solid #ffe0b2;font-weight:700"><i class="bi bi-person-check-fill"></i> فردي 100%</span>
+          </div>
+          <div style="display:flex;align-items:flex-end;justify-content:space-between;margin:12px 0 4px 0;padding:12px 0 8px 0;border-bottom:1px solid #f1f5f9">
+            <div>
+              <div class="priceOld" id="sidebarOldPrice">2000.00 ريال</div>
+              <div class="priceCurrent" id="sidebarCurrentPrice">1299.00 <small style="font-size:14px;font-weight:600;color:#5a6d80">ر.س</small></div>
+              <div class="priceSave" id="sidebarSave"><i class="bi bi-check-circle-fill"></i> وفرت 701 ر.س - برايفت</div>
+            </div>
+            <div style="text-align:left"><span style="font-size:11px;color:#6b7a8a">المدة</span><br><span style="font-weight:800;color:#0f172a;font-size:13px" id="sidebarDuration">180 يوم وصول</span></div>
+          </div>
+          <div class="tabbyAlert" data-bs-toggle="modal" data-bs-target="#tabbyModal" title="اضغط لمعرفة شروط التقسيط" style="margin-top: 20px;">
+            <div class="tabbyAlert__top"><span class="tabbyAlert__logo"><img src="tabby_logo_transparent.png" alt="tabby"></span><span class="tabbyAlert__title">ادفع بالتقسيط مع تابي</span><span class="tabbyAlert__badge">قسّط الآن</span></div>
+            <div class="tabbyAlert__instructions"><span><i class="bi bi-check-circle-fill"></i> بدون فوائد</span><span><i class="bi bi-shield-check"></i> متوافق مع الشريعة</span><span><i class="bi bi-lightning-charge-fill"></i> تفعيل فوري</span></div>
+          </div>
+          <div class="tamaraAlert" data-bs-toggle="modal" data-bs-target="#tamaraModal" title="اضغط لمعرفة شروط التقسيط مع تمارا">
+            <div class="tamaraAlert__top"><span class="tamaraAlert__logo">تمارا</span><span class="tamaraAlert__title">ادفع بالتقسيط مع تمارا</span><span class="tamaraAlert__badge">قسّط الآن</span></div>
+            <div class="tamaraAlert__instructions"><span><i class="bi bi-check-circle-fill"></i> بدون فوائد</span><span><i class="bi bi-shield-check"></i> متوافق مع الشريعة</span><span><i class="bi bi-lightning-charge-fill"></i> تفعيل فوري</span></div>
+          </div>
+          <a href="#" class="buyButton btn w-100" id="sidebarBuyBtn" style="margin-top: 20px; background:linear-gradient(180deg,#ffb341 0%, #ff9900 100%);color:#003A5E;text-align:center;font-size:15px;font-weight:800;padding:14px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;border-radius:12px;border:1px solid #e68a00;box-shadow:0 8px 18px rgba(255,153,0,.28)"><i class="bi bi-bag-check-fill"></i> احجز البرايفت الآن - <span id="sidebarBuyPrice">1299</span> ر.س</a>
+          <div class="text-center mt-2" style="font-size:11px;color:#6b7a8a;font-weight:600"><i class="bi bi-lock-fill"></i> دفع آمن 100% • مدرس خاص لك وحدك • دعم 24 ساعة</div>
+        </div>
+
+        <div class="includesPro" id="includesProSide">
+          <div class="includesPro__head"><b><i class="bi bi-grid-3x3-gap"></i> البرايفت يشتمل على</b><span id="includesDurationBadge">6 أشهر</span></div>
+          <div class="includesPro__grid" id="includesProGrid"></div>
+        </div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="mobileBuyBar d-lg-none">
+  <div class="mobileBuyBar__top">
+    <div class="mobileBuyBar__price">
+      <span class="mobileBuyBar__current" id="mobileCurrentPrice">1299.00 <small>ر.س</small></span>
+      <span class="mobileBuyBar__old" id="mobileOldPrice">2000 ر.س</span>
+    </div>
+    <span class="mobileBuyBar__badge"><i class="bi bi-person-check-fill"></i> برايفت فردي</span>
+  </div>
+  <div class="mobileBuyBar__actions">
+    <button type="button" class="mobileBuyBar__btn mobileBuyBar__btn--tabby" data-bs-toggle="modal" data-bs-target="#tabbyModal" title="التقسيط مع تابي">
+      <span class="mbLogo"><img src="tabby_logo_transparent.png" alt="تابي"></span>
+      قسط بـ تابي
+    </button>
+    <button type="button" class="mobileBuyBar__btn mobileBuyBar__btn--tamara" data-bs-toggle="modal" data-bs-target="#tamaraModal" title="التقسيط مع تمارا">
+      قسط بـ تمارا
+    </button>
+    <a href="#buyBox" class="mobileBuyBar__btn mobileBuyBar__btn--cta">
+      <i class="bi bi-bag-check-fill"></i> اشترك الآن
+    </a>
+  </div>
+</div>
+
+<div class="desktopStickyBar d-none d-lg-block" id="desktopStickyBar">
+  <div class="desktopStickyBar__inner"><span class="desktopStickyBar__title">ستيب البرايفت - فردي 100% - أكاديمية عايد</span><span class="desktopStickyBar__price"><del id="stickyOldPrice">2000.00 ر.س</del><span style="color:#ff9900" id="stickyCurrentPrice">1299.00 ر.س</span> <span style="font-size:11px;background:#f3e8ff;color:#6b21a8;border:1px solid #e9d5ff;padding:3px 8px;border-radius:999px"><i class="bi bi-credit-card"></i> 325 ر.س × 4</span></span><a href="#buyBox" class="desktopStickyBar__cta"><i class="bi bi-bag-check-fill"></i> احجز الآن</a></div>
+</div>
+
+<div class="modal fade" id="tabbyModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:18px;overflow:hidden;border:none">
+      <div class="modal-header" style="background:#f6fef8;border-bottom:1px solid #dcedc8">
+        <h5 class="modal-title" style="font-weight:800;color:#0f3d1f;font-size:15px;display:flex;align-items:center;gap:10px"><span class="tabbyAlert__logo" style="width:52px;height:32px"><img src="tabby_logo_transparent.png" alt="tabby"></span> ادفع بالتقسيط مع تابي</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body modal-body-scroll" style="background:#fff;padding:18px">
+        <div style="background:linear-gradient(180deg,#f6fef8 0%, #eef7f0 100%);border:1px solid #c8e6c9;border-radius:14px;padding:14px;margin-bottom:14px">
+          <b style="color:#0f3d1f;font-size:14px;display:block;margin-bottom:4px">لماذا تختار تابي؟</b>
+          <div style="font-size:12.5px;color:#5f7d61;line-height:1.7">تقسيط سهل ومرن بدون فوائد، متوافق مع الشريعة، ومرخّص من البنك المركزي السعودي — تفعيل فوري للدورة بعد إتمام الدفع.</div>
+        </div>
+        <div style="margin-bottom:12px">
+          <b style="font-size:13.5px;color:#0f172a;display:flex;align-items:center;gap:8px;margin-bottom:10px"><i class="bi bi-list-ol" style="color:#16a34a"></i> خطوات التقسيط مع تابي</b>
+          <div style="display:grid;gap:10px">
+            <div style="background:#f8fafc;border:1px solid #eef2f7;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
+              <span style="width:28px;height:28px;border-radius:8px;background:#e8f5e9;color:#166534;font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px">1</span>
+              <div><b style="font-size:13px;color:#0f172a;display:block;margin-bottom:2px">اختر تابي عند الدفع</b><span style="font-size:12px;color:#64748b;line-height:1.5">من صفحة الدفع اختر تابي كطريقة تقسيط ميسّرة.</span></div>
+            </div>
+            <div style="background:#f8fafc;border:1px solid #eef2f7;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
+              <span style="width:28px;height:28px;border-radius:8px;background:#e8f5e9;color:#166534;font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px">2</span>
+              <div><b style="font-size:13px;color:#0f172a;display:block;margin-bottom:2px">أكمل بياناتك وادفع الدفعة الأولى</b><span style="font-size:12px;color:#64748b;line-height:1.5">سجّل برقم جوالك وأكمل التحقق، ثم ادفع أول قسط فوراً.</span></div>
+            </div>
+            <div style="background:#f8fafc;border:1px solid #eef2f7;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
+              <span style="width:28px;height:28px;border-radius:8px;background:#e8f5e9;color:#166534;font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px">3</span>
+              <div><b style="font-size:13px;color:#0f172a;display:block;margin-bottom:2px">تفعيل فوري ومتابعة باقي الأقساط</b><span style="font-size:12px;color:#64748b;line-height:1.5">يتم تفعيل البرايفت فوراً، وتتابع بقية الأقساط عبر تطبيق تابي بسهولة.</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#f0fdf4;border:1px solid #bbf7d0;border-radius:12px;padding:12px;display:grid;gap:8px;margin-bottom:4px">
+          <div style="font-size:12.5px;color:#166534;display:flex;gap:8px;font-weight:700"><i class="bi bi-check-circle-fill"></i> بدون فوائد ورسوم خفية</div>
+          <div style="font-size:12.5px;color:#166534;display:flex;gap:8px;font-weight:700"><i class="bi bi-shield-check"></i> متوافق مع الشريعة الإسلامية</div>
+          <div style="font-size:12.5px;color:#166534;display:flex;gap:8px;font-weight:700"><i class="bi bi-bank"></i> مرخّص من البنك المركزي السعودي</div>
+        </div>
+        <a href="https://wa.me/966920019606?text=السلام عليكم انا قادم من الموقع من دورة [اكتب اسم الدورة هنا ] واريد التقسيط عن طريق تابي" target="_blank" class="btnWhatsSupport"><i class="bi bi-whatsapp" style="font-size:18px"></i> تواصل مع الدعم للتقسيط</a>
+        <div style="text-align:center;margin-top:10px;font-size:11px;color:#94a3b8"><i class="bi bi-lock-fill"></i> دفع آمن 100% • تفعيل فوري • مدرس خاص لك</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<div class="modal fade" id="tamaraModal" tabindex="-1" aria-hidden="true">
+  <div class="modal-dialog modal-dialog-centered">
+    <div class="modal-content" style="border-radius:18px;overflow:hidden;border:none">
+      <div class="modal-header" style="background:linear-gradient(180deg,#faf5ff 0%, #f3e8ff 100%);border-bottom:1px solid #e9d5ff">
+        <h5 class="modal-title" style="font-weight:800;color:#4c1d95;font-size:15px;display:flex;align-items:center;gap:10px"><span class="tamaraAlert__logo" style="width:52px;height:32px;font-size:12px">تمارا</span> ادفع بالتقسيط مع تمارا</h5>
+        <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
+      </div>
+      <div class="modal-body modal-body-scroll" style="background:#fff;padding:18px">
+        <div style="background:linear-gradient(180deg,#faf5ff 0%, #f5f0ff 100%);border:1px solid #e9d5ff;border-radius:14px;padding:14px;margin-bottom:14px">
+          <b style="color:#4c1d95;font-size:14px;display:block;margin-bottom:4px">لماذا تختار تمارا؟</b>
+          <div style="font-size:12.5px;color:#6b21a8;line-height:1.7">تقسيط مرن بدون فوائد وبدون رسوم تأخير، متوافق مع الشريعة، وسهل الاستخدام — ادفع الآن على دفعات واستمتع بالدورة فوراً.</div>
+        </div>
+        <div style="margin-bottom:12px">
+          <b style="font-size:13.5px;color:#0f172a;display:flex;align-items:center;gap:8px;margin-bottom:10px"><i class="bi bi-list-ol" style="color:#9601F1"></i> خطوات التقسيط مع تمارا</b>
+          <div style="display:grid;gap:10px">
+            <div style="background:#faf5ff;border:1px solid #f3e8ff;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
+              <span style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#9601F1,#7c3aed);color:#fff;font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px">1</span>
+              <div><b style="font-size:13px;color:#0f172a;display:block;margin-bottom:2px">اختر تمارا عند الدفع</b><span style="font-size:12px;color:#64748b;line-height:1.5">من صفحة إتمام الطلب اختر تمارا كطريقة الدفع بالتقسيط.</span></div>
+            </div>
+            <div style="background:#faf5ff;border:1px solid #f3e8ff;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
+              <span style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#9601F1,#7c3aed);color:#fff;font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px">2</span>
+              <div><b style="font-size:13px;color:#0f172a;display:block;margin-bottom:2px">سجّل وادفع الدفعة الأولى</b><span style="font-size:12px;color:#64748b;line-height:1.5">برقم جوالك وتحقق الهوية عند الحاجة، ثم ادفع أول قسط فوراً.</span></div>
+            </div>
+            <div style="background:#faf5ff;border:1px solid #f3e8ff;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
+              <span style="width:28px;height:28px;border-radius:8px;background:linear-gradient(135deg,#9601F1,#7c3aed);color:#fff;font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px">3</span>
+              <div><b style="font-size:13px;color:#0f172a;display:block;margin-bottom:2px">استمتع بالدورة وتابع الأقساط</b><span style="font-size:12px;color:#64748b;line-height:1.5">تفعيل فوري للبرايفت، وتتابع بقية الدفعات عبر تطبيق تمارا بسهولة.</span></div>
+            </div>
+          </div>
+        </div>
+        <div style="background:#faf5ff;border:1px solid #e9d5ff;border-radius:12px;padding:12px;display:grid;gap:8px;margin-bottom:4px">
+          <div style="font-size:12.5px;color:#6d28d9;display:flex;gap:8px;font-weight:700"><i class="bi bi-check-circle-fill"></i> بدون فوائد وبدون رسوم تأخير</div>
+          <div style="font-size:12.5px;color:#6d28d9;display:flex;gap:8px;font-weight:700"><i class="bi bi-shield-check"></i> متوافق مع الشريعة الإسلامية</div>
+          <div style="font-size:12.5px;color:#6d28d9;display:flex;gap:8px;font-weight:700"><i class="bi bi-phone"></i> سهل وسريع — رقم جوالك فقط</div>
+        </div>
+        <a href="https://wa.me/966920019606?text=السلام عليكم انا قادم من الموقع من دورة [اكتب اسم الدورة هنا ] واريد التقسيط عن طريق تمارا"  target="_blank" class="btnWhatsSupport btnWhatsSupport--tamara"><i class="bi bi-whatsapp" style="font-size:18px"></i> تواصل مع الدعم للتقسيط</a>
+        <div style="text-align:center;margin-top:10px;font-size:11px;color:#94a3b8"><i class="bi bi-lock-fill"></i> دفع آمن 100% • تفعيل فوري • مدرس خاص لك</div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<script src="https://cdn.jsdelivr.net/npm/bootstrap@5.0.2/dist/js/bootstrap.bundle.min.js"></script>
+<script>
+/* ============================================
+   بيانات الموقع كلها هنا — سهلة التعديل
+   ============================================ */
+const COURSE_DATA = {
+  title: "دورة ستيب البرايفت: تجربة تعليمية فردية 100% من أكاديمية عايد",
+  badge: "برايفت فردي 100% - أكاديمية عايد",
+  videoId: "FcZtUX2f0Qo",
+  price: 1299,
+  oldPrice: 2000,
+  currency: "ر.س",
+  durationDays: 180,
+  durationLabel: "180 يوم وصول",
+  language: "العربية",
+  studentsCount: "1,240",
+  rating: "4.9",
+  reviewsCount: "320",
+  instructorsLabel: "نخبة مدربين أكاديمية عايد",
+  avgScore: "85+",
+  successStories: "1,240",
+  supportPhone: "920019606",
+  courseImage: "دورة_ستيب_عايد_الاساسية.webp",
+
+  meta: [
+    { icon: "bi-person-video3", text: "نخبة مدربين أكاديمية عايد" },
+    { icon: "bi-people", text: "1,240 طالب متفوق" },
+    { icon: "bi-star-fill", text: "4.9", small: "(320 تقييم)" },
+    { icon: "bi-translate", text: "العربية" },
+    { icon: "bi-clock-history", text: "180 يوم وصول" }
+  ],
+
+  features: [
+    { icon: "bi-camera-video", title: "12 محاضرة فردية أونلاين", desc: "من ساعة لساعة ونصف لكل محاضرة عبر Zoom - تركيز كامل عليك 100%" },
+    { icon: "bi-bullseye", title: "تحديد مستوى وشرح مخصص", desc: "خطة دراسية مفصلة حسب مستواك الحالي ونقاط ضعفك" },
+    { icon: "bi-clock", title: "مرونة كاملة في المواعيد", desc: "اختر الوقت المناسب لك - المحاضرة مخصصة لك وحدك" },
+    { icon: "bi-graph-up", title: "متابعة أسبوعية وتقرير مفصل", desc: "تقرير بالنماذج المتكررة وتقدمك أول بأول" },
+    { icon: "bi-journal-check", title: "اختبارات دورية + خطط مذاكرة", desc: "متابعة منفردة مع المدرس وخطط أسبوعية حتى بعد الدورة" },
+    { icon: "bi-laptop", title: "موقع محاكي للاختبار الفعلي", desc: "تجربة تحاكي يوم الاختبار بظروف مطابقة 100%" },
+    { icon: "bi-translate", title: "ملف 1300 كلمة + كبسولة إنقاذ", desc: "أهم الكلمات لفهم قطع القراءة وملخص سريع للمراجعة" },
+    { icon: "bi-headset", title: "مستشار تدريبي + دعم 24 ساعة", desc: "مساعدة في تحديد الخطة وموعد الاختبار المناسب" }
+  ],
+
+  audience: [
+    { icon: "bi-mortarboard", title: "طلاب الثانوي", sub: "المتقدمين للجامعة" },
+    { icon: "bi-book", title: "طلاب الجامعات", sub: "والدراسات العليا" },
+    { icon: "bi-briefcase", title: "الموظفون", sub: "الراغبين بالترقيات" },
+    { icon: "bi-airplane", title: "الراغبين بالابتعاث", sub: "الخارجي" }
+  ],
+
+  pillars: [
+    { num: 1, title: "قسم القواعد Grammar", desc: "شرح مبسط لأهم القواعد المتكررة في ستيب، مع تكنيكات واضحة وسهلة للتعامل مع أسئلة الاختبار وحلها، وملفات شرح ونماذج للتدريب، واختبارات محاكية على موقع الأكاديمية لخوض التجربة قبل الاختبار الفعلي." },
+    { num: 2, title: "قسم القراءة Reading", desc: "استراتيجيات واضحة للتعامل مع طبيعة الأسئلة وفهم المغزى منها وكيفية حلها، مع تحليل لأهم القطع المتكررة، وملفات شرح ونماذج تدريبية، واختبارات محاكية للاستعداد الكامل." },
+    { num: 3, title: "قسم الاستماع Listening", desc: "تحليل أنواع الأسئلة وفهم المطلوب منها، واستراتيجيات مهمة للتعامل معها وخاصة التهيئة الذهنية، إلى جانب ملفات شرح ونماذج واختبارات محاكية." }
+  ],
+
+  whyPrivate: [
+    "خبرة طويلة في تدريب الطلاب على اجتياز اختبار ستيب",
+    "تغطية كاملة للأقسام الثلاثة (استماع – قراءة – قرامر) عبر محاضرات لايف على Zoom",
+    "تكنيك واستراتيجية تساعدك في التعامل مع كل سؤال وضمان الدرجة",
+    "ملفات شرح ونماذج محدّثة طبقًا لأحدث التعديلات",
+    "دورة مصممة خصيصًا لك إذا كنت تحتاج متابعة خاصة وجهًا لوجه، مع تحفيز روح المنافسة الإيجابية"
+  ],
+
+  suitableYes: [
+    "درجتك أقل من 75 وتطمح لـ 85+ بخطة فردية تركز على نقاط ضعفك فقط.",
+    "جربت دورات جماعية وما استفدت - تحتاج مدرس خاص يتابعك وحدك.",
+    "وقتك ضيق وتحتاج مرونة في المواعيد + متابعة واتساب 24 ساعة.",
+    "تعاني في إدارة وقت القراءة والاستماع وتحتاج تكنيك خاص بك."
+  ],
+
+  suitableNo: [
+    "حصلت بالفعل على 85+ وتبحث عن برنامج 95+ متقدم جداً.",
+    "تفضل التعلم الذاتي الكامل بدون التزام بجدول أو متابعة.",
+    "تبحث عن أرخص سعر فقط - البرايفت استثمار فردي بنتائج مضمونة."
+  ],
+
+  includesOverview: [
+    { icon: "bi-person-check", title: "برايفت فردي 100%", desc: "مدرس خاص يتابعك وحدك وليس مجموعة" },
+    { icon: "bi-camera-video", title: "12 محاضرة فردية على Zoom", desc: "ساعة لساعة ونصف - مرونة في الوقت" },
+    { icon: "bi-stopwatch", title: "وصول 180 يوم (6 أشهر)", desc: "مراجعة كاملة لكل المواد" },
+    { icon: "bi-journal-check", title: "1300 كلمة + كبسولة إنقاذ + محاكي", desc: "ملفات ونماذج محدثة + موقع محاكي" }
+  ],
+
+  includesSide: [
+    { icon: "bi-person-check", small: "نوع الدورة", bold: "برايفت فردي 100%" },
+    { icon: "bi-collection-play", small: "المحاضرات", bold: "12 محاضرة خاصة" },
+    { icon: "bi-stopwatch", small: "مدة الاشتراك", bold: "180 يوم" },
+    { icon: "bi-translate", small: "اللغة", bold: "العربية" },
+    { icon: "bi-card-checklist", small: "الاختبارات", bold: "محاكي + دورية" },
+    { icon: "bi-paperclip", small: "الملفات", bold: "1300 كلمة + كبسولة" }
+  ],
+
+  curriculum: {
+    modulesCount: 6,
+    lessonsCount: 68,
+    hours: 42,
+    modules: [
+      {
+        id: "mod1",
+        iconType: "video",
+        icon: "bi-play-btn",
+        title: "الوحدة 1: تأسيس القواعد الذهبية",
+        badge: "8 دروس • 6 ساعات",
+        open: true,
+        lessons: [
+          { icon: "bi-play-circle", name: "مقدمة اختبار STEP وخارطة الطريق للـ 90+", meta: [{ icon: "bi-clock", text: "18:20" }, { icon: "bi-eye", text: "معاينة" }] },
+          { icon: "bi-play-circle", name: "الفرق بين المضارع البسيط والمستمر - شرح تفاعلي", meta: [{ icon: "bi-clock", text: "24:15" }] },
+          { icon: "bi-file-earmark-text", name: "ملزمة المفردات الأكثر تكرارًا PDF - 1300 كلمة", meta: [{ icon: "bi-download", text: "ملف" }] },
+          { icon: "bi-question-circle", name: "اختبار قصير - الوحدة الأولى", meta: [{ icon: "bi-card-checklist", text: "10 أسئلة" }] }
+        ]
+      },
+      {
+        id: "mod2",
+        iconType: "doc",
+        icon: "bi-book",
+        title: "الوحدة 2: القراءة السريعة",
+        badge: "12 درس • 8 ساعات",
+        open: false,
+        lessons: [
+          { icon: "bi-play-circle", name: "تقنية Skimming & Scanning + ملفات القطع المتكررة", meta: [{ icon: "bi-clock", text: "32:10" }] },
+          { icon: "bi-play-circle", name: "كيف تحل سؤال الفكرة الرئيسية في 60 ثانية", meta: [{ icon: "bi-clock", text: "18:45" }] },
+          { icon: "bi-file-earmark-text", name: "ملف القطع المتكررة 2024 - محلول", meta: [{ icon: "bi-download", text: "PDF" }] }
+        ]
+      },
+      {
+        id: "mod3",
+        iconType: "quiz",
+        icon: "bi-headphones",
+        title: "الوحدة 3: الاستماع بذكاء",
+        badge: "6 دروس • 4 ساعات",
+        open: false,
+        lessons: [
+          { icon: "bi-play-circle", name: "استراتيجية التقاط الكلمات المفتاحية", meta: [{ icon: "bi-clock", text: "22:10" }] },
+          { icon: "bi-headphones", name: "تدريب استماع - نماذج محاكية", meta: [{ icon: "bi-music-note-list", text: "صوتي" }] }
+        ]
+      }
+    ]
+  },
+
+  instructors: {
+    teamTitle: "فريق ستيب البرايفت",
+    teamSubtitle: "مدرّس خاص يتابعك وحدك • خطة فردية 100% • متابعة 24 ساعة",
+    mainAvatar: "https://ui-avatars.com/api/?name=Team+STEP&background=003A5E&color=fff&size=136&bold=true&font-size=0.4",
+    bio: "جميع المدربين يتمتعون بمعرفة شاملة بأسلوب اختبار <b>STEP</b> وكيفية التعامل معه، وقدرة على شرح المادة بأسلوب مبسط يوصل المعلومة بكفاءة. خبرة طويلة في تدريب الطلاب على اجتياز اختبار ستيب بتغطية كاملة للأقسام الثلاثة <b>(استماع – قراءة – قرامر)</b> عبر محاضرات لايف على Zoom مع تكنيك واستراتيجية تضمن الدرجة.",
+    stats: [
+      { value: "12", icon: "bi-camera-video-fill", iconColor: "#0ea5e9", label: "محاضرة فردية" },
+      { value: "180", icon: "bi-calendar-check-fill", iconColor: "#f59e0b", label: "يوم وصول كامل" },
+      { value: "5+", icon: "bi-people-fill", iconColor: "#16a34a", label: "مدربين متخصصين" }
+    ],
+    team: [
+      { name: "مس/ همت", gender: "female", title: "ليسانس الآداب والتربية - قسم اللغة الإنجليزية - جامعة المنصورة", exp: "خبرة 5+ سنوات - ستيب", avatar: "https://ui-avatars.com/api/?name=Hemmat&background=ec4899&color=fff&size=88&bold=true" },
+      { name: "مس/ ضحى", gender: "female", title: "ليسانس الآداب - قسم اللغة الإنجليزية - جامعة المنصورة", exp: "خبرة 5+ سنوات - ستيب", avatar: "https://ui-avatars.com/api/?name=Doha&background=8b5cf6&color=fff&size=88&bold=true" },
+      { name: "مس/ سلاف", gender: "female", title: "بكالوريوس تجارة - جامعة السلاب - متخصصة تبسيط القواعد", exp: "خبرة 4+ سنوات - ستيب", avatar: "https://ui-avatars.com/api/?name=Salaf&background=06b6d4&color=fff&size=88&bold=true" },
+      { name: "مستر/ أحمد عزت", gender: "male", title: "ليسانس الآداب والتربية - إنجليزي - جامعة المنصورة", exp: "خبرة 3+ سنوات - تكنيك الاختبار", avatar: "https://ui-avatars.com/api/?name=Ahmed+Ezzat&background=003A5E&color=fff&size=88&bold=true" },
+      { name: "مستر/ أحمد وائل", gender: "male", title: "ليسانس الآداب والتربية - إنجليزي - جامعة المنصورة - استراتيجيات قراءة سريعة وحل ذكي", exp: "خبرة 3+ سنوات - متابعة فردية", avatar: "https://ui-avatars.com/api/?name=Ahmed+Wael&background=f59e0b&color=fff&size=88&bold=true", span2: true }
+    ],
+    tags: [
+      { icon: "bi-check2-circle", color: "#16a34a", text: "متابعة فردية 100%" },
+      { icon: "bi-whatsapp", color: "#25D366", text: "دعم 24 ساعة" },
+      { icon: "bi-file-earmark-text", color: "#7c3aed", text: "ملفات محدثة" },
+      { icon: "bi-laptop", color: "#0ea5e9", text: "محاكي اختبار فعلي" },
+      { icon: "bi-translate", color: "#f59e0b", text: "1300 كلمة + كبسولة إنقاذ" }
+    ]
+  },
+
+  schedule: [
+    { week: "المرحلة 1", icon: "bi-book", title: "تأسيس القواعد", meta: "4 محاضرات • قواعد + مفردات + تحديد مستوى" },
+    { week: "المرحلة 2", icon: "bi-journal-text", title: "القراءة والاستماع", meta: "4 محاضرات • استراتيجيات حل سريع + قطع متكررة" },
+    { week: "المرحلة 3", icon: "bi-lightbulb", title: "المراجعة والمحاكاة", meta: "4 محاضرات • محاكاة حقيقية + خطط مذاكرة" }
+  ],
+
+  freeTests: [
+    { icon: "bi-clipboard-check", iconBg: "#e3f2fd", iconColor: "#1565c0", title: "اختبار تحديد مستوى مجاني ستيب", desc: "اعرف نقاط ضعفك قبل البدء - أساس خطة البرايفت", btn: "ابدأ الآن", href: "#" },
+    { icon: "bi-journal-text", iconBg: "#fff3e0", iconColor: "#e65100", title: "نموذج محاكي - قراءة", desc: "قطعتين مع الحل والتحليل", btn: "تحميل PDF", href: "#" },
+    { icon: "bi-headphones", iconBg: "#e8f5e9", iconColor: "#2e7d32", title: "نموذج محاكي - استماع", desc: "ملف صوتي + أسئلة", btn: "استمع الآن", href: "#" }
+  ],
+
+  reviewsImages: [
+    "https://images.unsplash.com/photo-1523240795612-9a054b0db644?w=800&h=450&fit=crop",
+    "https://images.unsplash.com/photo-1522202176988-66273c2fd55f?w=800&h=450&fit=crop",
+    "https://images.unsplash.com/photo-1517245386807-bb43f82c33c4?w=800&h=450&fit=crop",
+    "https://images.unsplash.com/photo-1552664730-d307ca884978?w=800&h=450&fit=crop"
+  ],
+
+  faq: [
+    { id: "faq1", q: "هل البرايفت مناسب للمبتدئ تماماً؟", a: "نعم، نبدأ بتحديد مستوى ثم خطة مخصصة من الصفر. لو مستواك أقل من مبتدأ نوفر دورات تأسيس إنجليزي قبل البرايفت، تواصل على 920019606.", open: true },
+    { id: "faq2", q: "كم مدة الوصول ومتى أحجز الاختبار؟", a: "وصول 180 يوم (6 أشهر كاملة). يفضل حجز الاختبار بعد انتهاء الشرح بأسبوعين لشهر للمراجعة والمحاكاة، والمستشار يساعدك تحدد الموعد المناسب.", open: false },
+    { id: "faq3", q: "هل المحاضرات فردية فعلاً؟", a: "نعم 100% برايفت - أنت وحدك مع المدرس عبر Zoom، مدة المحاضرة ساعة لساعة ونصف، مع مرونة تامة في اختيار الوقت.", open: false },
+    { id: "faq4", q: "هل يوجد ضمان ودعم؟", a: "دعم 24 ساعة، متابعة أسبوعية بتقرير مفصل، موقع محاكي يحاكي الاختبار الفعلي، ملف 1300 كلمة + كبسولة إنقاذ للمراجعة السريعة.", open: false }
+  ]
+};
+
+/* ============================================
+   رسم الصفحة من البيانات
+   ============================================ */
+function renderPage() {
+  const d = COURSE_DATA;
+
+  document.getElementById("courseTitleText").textContent = d.title;
+
+  // Meta
+  const metaEl = document.getElementById("courseMetaPro");
+  metaEl.innerHTML = d.meta.map(m => `
+    <span style="display:inline-flex;align-items:center;gap:7px;font-size:13.5px;font-weight:600;color:#475569">
+      <i class="bi ${m.icon}" style="font-size:16px;color:#9ca3af"></i> ${m.text}${m.small ? ` <small style="color:#6b7280">${m.small}</small>` : ""}
+    </span>
+  `).join("");
+
+  // YouTube
+  const yt = document.getElementById("courseYoutube");
+  yt.setAttribute("data-videoid", d.videoId);
+  const thumb = yt.querySelector(".youtube-thumbnail");
+  if (thumb) thumb.style.backgroundImage = `url('https://img.youtube.com/vi/${d.videoId}/hqdefault.jpg')`;
+
+  // Prices
+  const save = d.oldPrice - d.price;
+  document.getElementById("ctaPrice").textContent = d.price;
+  document.getElementById("overviewPrice").textContent = d.price;
+  document.getElementById("sidebarOldPrice").textContent = d.oldPrice.toFixed(2) + " ريال";
+  document.getElementById("sidebarCurrentPrice").innerHTML = d.price.toFixed(2) + ` <small style="font-size:14px;font-weight:600;color:#5a6d80">${d.currency}</small>`;
+  document.getElementById("sidebarSave").innerHTML = `<i class="bi bi-check-circle-fill"></i> وفرت ${save} ر.س - برايفت`;
+  document.getElementById("sidebarDuration").textContent = d.durationLabel;
+  document.getElementById("sidebarBuyPrice").textContent = d.price;
+  document.getElementById("mobileCurrentPrice").innerHTML = d.price.toFixed(2) + ` <small>${d.currency}</small>`;
+  document.getElementById("mobileOldPrice").textContent = d.oldPrice + " ر.س";
+  document.getElementById("stickyOldPrice").textContent = d.oldPrice.toFixed(2) + " ر.س";
+  document.getElementById("stickyCurrentPrice").textContent = d.price.toFixed(2) + " ر.س";
+  document.getElementById("avgScore").textContent = d.avgScore;
+  document.getElementById("successStories").textContent = d.successStories;
+
+  // Features
+  document.getElementById("privateFeaturesGrid").innerHTML = d.features.map(f => `
+    <div class="privateFeatureItem"><i class="bi ${f.icon}"></i><div><b>${f.title}</b><span>${f.desc}</span></div></div>
+  `).join("");
+
+  // Audience
+  document.getElementById("privateAudienceGrid").innerHTML = d.audience.map(a => `
+    <div class="privateAudienceItem"><i class="bi ${a.icon}"></i><b>${a.title}</b><span style="font-size:11px;color:#64748b">${a.sub}</span></div>
+  `).join("");
+
+  // Pillars
+  document.getElementById("privatePillarsGrid").innerHTML = d.pillars.map(p => `
+    <div class="privatePillar"><div class="privatePillar__num">${p.num}</div><div><b>${p.title}</b><span>${p.desc}</span></div></div>
+  `).join("");
+
+  // Why
+  document.getElementById("whyPrivateList").innerHTML = d.whyPrivate.map(w => `
+    <li><i class="bi bi-check-circle-fill"></i> ${w}</li>
+  `).join("");
+
+  // Suitable
+  document.getElementById("suitableYes").innerHTML = d.suitableYes.map(s => `
+    <li><i class="bi bi-check-circle-fill" style="color:#16a34a"></i><span>${s}</span></li>
+  `).join("");
+  document.getElementById("suitableNo").innerHTML = d.suitableNo.map(s => `
+    <li><i class="bi bi-x-circle" style="color:#ef4444"></i><span>${s}</span></li>
+  `).join("");
+
+  // Includes overview
+  document.getElementById("includesOverviewGrid").innerHTML = d.includesOverview.map(i => `
+    <div class="includesOverview__item"><i class="bi ${i.icon}"></i><div><b>${i.title}</b><span>${i.desc}</span></div></div>
+  `).join("");
+
+  // Includes side
+  document.getElementById("includesProGrid").innerHTML = d.includesSide.map(i => `
+    <div class="includesPro__item"><i class="bi ${i.icon}"></i><div class="includesPro__item__text"><small>${i.small}</small><b>${i.bold}</b></div></div>
+  `).join("");
+
+  // Curriculum
+  document.getElementById("curriculumMeta").innerHTML = `
+    <span><i class="bi bi-collection-play"></i> ${d.curriculum.modulesCount} وحدات</span>
+    <span><i class="bi bi-play-circle"></i> ${d.curriculum.lessonsCount} درس</span>
+    <span><i class="bi bi-clock-history"></i> ${d.curriculum.hours} ساعة</span>
+  `;
+  document.getElementById("courseAccordion").innerHTML = d.curriculum.modules.map(m => `
+    <div class="accordion-item">
+      <h2 class="accordion-header">
+        <button class="accordion-button ${m.open ? "" : "collapsed"}" type="button" data-bs-toggle="collapse" data-bs-target="#${m.id}">
+          <span class="moduleIcon ${m.iconType}"><i class="bi ${m.icon}"></i></span>
+          <span>${m.title}</span>
+          <span class="ms-auto badge bg-light text-dark border" style="font-size:11px">${m.badge}</span>
+        </button>
+      </h2>
+      <div id="${m.id}" class="accordion-collapse collapse ${m.open ? "show" : ""}" data-bs-parent="#courseAccordion">
+        <div class="lessonList">
+          ${m.lessons.map(l => `
+            <div class="lessonRow">
+              <div class="lessonRow__left">
+                <span class="lessonRow__icon"><i class="bi ${l.icon}"></i></span>
+                <span class="lessonRow__name">${l.name}</span>
+              </div>
+              <div class="lessonRow__meta">
+                ${(l.meta || []).map(mt => `<span><i class="bi ${mt.icon}"></i> ${mt.text}</span>`).join("")}
+              </div>
+            </div>
+          `).join("")}
+        </div>
+      </div>
+    </div>
+  `).join("");
+
+  // Instructors
+  document.getElementById("instructorTeamTitle").textContent = d.instructors.teamTitle;
+  document.getElementById("instructorTeamSubtitle").textContent = d.instructors.teamSubtitle;
+  document.getElementById("mainInstructorAvatar").innerHTML = `<img src="${d.instructors.mainAvatar}" alt="فريق المدربين">`;
+  document.getElementById("instructorBio").innerHTML = d.instructors.bio;
+  document.getElementById("instructorStats").innerHTML = d.instructors.stats.map(s => `
+    <div>
+      <b>${s.value} <i class="bi ${s.icon}" style="color:${s.iconColor};font-size:13px"></i></b>
+      <small>${s.label}</small>
+    </div>
+  `).join("");
+  document.getElementById("instructorTeamGrid").innerHTML = d.instructors.team.map(t => `
+    <div class="instructorTeamCard"${t.span2 ? ' style="grid-column: span 2"' : ""}>
+      <div class="instructorTeamCard__avatar"><img src="${t.avatar}" alt="${t.name}"></div>
+      <div class="instructorTeamCard__info"><b>${t.name}</b><span>${t.title}</span><small>${t.exp}</small></div>
+    </div>
+  `).join("");
+  document.getElementById("instructorTags").innerHTML = d.instructors.tags.map(t => `
+    <span><i class="bi ${t.icon}" style="color:${t.color}"></i> ${t.text}</span>
+  `).join("");
+
+  // Schedule
+  document.getElementById("scheduleGrid").innerHTML = d.schedule.map(s => `
+    <div class="scheduleItem">
+      <div class="scheduleItem__week">${s.week}</div>
+      <div class="scheduleItem__title"><i class="bi ${s.icon}"></i> ${s.title}</div>
+      <div class="scheduleItem__meta">${s.meta}</div>
+    </div>
+  `).join("");
+
+  // Free tests
+  document.getElementById("freeTestsList").innerHTML = d.freeTests.map(t => `
+    <div class="freeTestCard">
+      <div class="freeTestCard__icon" style="background:${t.iconBg};color:${t.iconColor}"><i class="bi ${t.icon}"></i></div>
+      <div><b>${t.title}</b><span>${t.desc}</span></div>
+      <a href="${t.href}" class="freeTestCard__btn">${t.btn}</a>
+    </div>
+  `).join("");
+
+  // Reviews carousel
+  document.getElementById("reviewsIndicators").innerHTML = d.reviewsImages.map((_, i) => `
+    <button type="button" data-bs-target="#reviewsCarousel" data-bs-slide-to="${i}" class="${i === 0 ? "active" : ""}" ${i === 0 ? 'aria-current="true"' : ""}></button>
+  `).join("");
+  document.getElementById("reviewsInner").innerHTML = d.reviewsImages.map((src, i) => `
+    <div class="carousel-item ${i === 0 ? "active" : ""}"><img src="${src}" alt="نتائج الطلاب ${i + 1}"></div>
+  `).join("");
+
+  // FAQ
+  document.getElementById("faqAccordion").innerHTML = d.faq.map(f => `
+    <div class="accordion-item" style="margin-bottom:10px">
+      <h2 class="accordion-header">
+        <button class="accordion-button ${f.open ? "" : "collapsed"}" type="button" data-bs-toggle="collapse" data-bs-target="#${f.id}">${f.q}</button>
+      </h2>
+      <div id="${f.id}" class="accordion-collapse collapse ${f.open ? "show" : ""}" data-bs-parent="#faqAccordion">
+        <div style="padding:14px 18px;background:#f8fbff;font-size:13px;color:#334155">${f.a}</div>
+      </div>
+    </div>
+  `).join("");
+}
+
+document.addEventListener("DOMContentLoaded", function () {
+  renderPage();
+
+  // YouTube play
+  function playYoutubeContainer(container) {
+    if (!container || container.classList.contains("is-playing")) return;
+    const videoId = container.getAttribute("data-videoid") || container.dataset.videoid;
+    if (!videoId) return;
+    container.classList.add("is-playing");
+    const iframe = document.createElement("iframe");
+    iframe.src = "https://www.youtube.com/embed/" + videoId + "?autoplay=1&rel=0&modestbranding=1&playsinline=1";
+    iframe.title = "YouTube video player";
+    iframe.allow = "accelerometer; autoplay; clipboard-write; encrypted-media; gyroscope; picture-in-picture; web-share";
+    iframe.allowFullscreen = true;
+    iframe.setAttribute("allowfullscreen", "");
+    iframe.setAttribute("frameborder", "0");
+    iframe.setAttribute("referrerpolicy", "strict-origin-when-cross-origin");
+    iframe.style.cssText = "position:absolute;inset:0;width:100%;height:100%;border:0;z-index:5;background:#000";
+    container.innerHTML = "";
+    container.appendChild(iframe);
+  }
+  document.querySelectorAll(".youtube-container").forEach(function (container) {
+    var videoId = container.getAttribute("data-videoid");
+    if (!videoId) return;
+    var thumb = container.querySelector(".youtube-thumbnail");
+    if (thumb) {
+      var testImg = new Image();
+      testImg.onload = function () {
+        if (testImg.naturalWidth > 200) {
+          thumb.style.backgroundImage = "url('https://img.youtube.com/vi/" + videoId + "/maxresdefault.jpg')";
+        }
+      };
+      testImg.src = "https://img.youtube.com/vi/" + videoId + "/maxresdefault.jpg";
+    }
+    container.addEventListener("click", function (e) {
+      e.preventDefault();
+      e.stopPropagation();
+      playYoutubeContainer(container);
+    });
+    container.addEventListener("keydown", function (e) {
+      if (e.key === "Enter" || e.key === " ") {
+        e.preventDefault();
+        playYoutubeContainer(container);
+      }
+    });
+  });
+
+  // Tabs scroll
+  const navLinks = Array.from(document.querySelectorAll("#nav-tab .nav-link"));
+  function setActiveNavLink(link) {
+    navLinks.forEach(l => l.classList.remove("active"));
+    link.classList.add("active");
+    link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+  }
+  function scrollToSection(target) {
+    if (!target) return;
+    const yOffset = -120;
+    const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
+    window.scrollTo({ top: y, behavior: "smooth" });
+  }
+  navLinks.forEach(link => {
+    link.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.querySelector(this.dataset.scrollTarget);
+      scrollToSection(target);
+      setActiveNavLink(this);
+    });
+  });
+
+  // زر استعرض محتوى الدورة — سكرول لمحتوى الدورة
+  const btnShow = document.getElementById("btnShowCurriculum");
+  if (btnShow) {
+    btnShow.addEventListener("click", function (e) {
+      e.preventDefault();
+      const target = document.getElementById("nav-curriculum");
+      scrollToSection(target);
+      const curriculumLink = document.getElementById("nav-curriculum-tab");
+      if (curriculumLink) setActiveNavLink(curriculumLink);
+    });
+  }
+
+  const spySections = navLinks.map(link => document.querySelector(link.dataset.scrollTarget)).filter(Boolean);
+  if ("IntersectionObserver" in window && spySections.length) {
+    const spyObserver = new IntersectionObserver((entries) => {
+      entries.forEach(entry => {
+        if (entry.isIntersecting) {
+          const matchingLink = navLinks.find(l => l.dataset.scrollTarget === ("#" + entry.target.id));
+          if (matchingLink && !matchingLink.classList.contains("active")) {
+            navLinks.forEach(l => l.classList.remove("active"));
+            matchingLink.classList.add("active");
+          }
+        }
+      });
+    }, { root: null, rootMargin: "-130px 0px -65% 0px", threshold: 0 });
+    spySections.forEach(sec => spyObserver.observe(sec));
+  }
+
+  // Sticky buy box
+  const buyBox = document.getElementById("buyBox");
+  const includesSide = document.getElementById("includesProSide");
+  const placeholder = document.getElementById("boxBuyPlaceholder");
+  if (buyBox && includesSide && placeholder) {
+    const updateFixed = () => {
+      const includesRect = includesSide.getBoundingClientRect();
+      const shouldFix = includesRect.bottom < 100;
+      if (shouldFix && window.innerWidth >= 992) {
+        if (!buyBox.classList.contains("is-fixed")) {
+          placeholder.style.height = buyBox.offsetHeight + 16 + "px";
+          placeholder.classList.add("is-active");
+          buyBox.classList.add("is-fixed");
+        }
+      } else {
+        buyBox.classList.remove("is-fixed");
+        placeholder.classList.remove("is-active");
+        placeholder.style.height = "0px";
+      }
+    };
+    window.addEventListener("scroll", updateFixed, { passive: true });
+    window.addEventListener("resize", updateFixed);
+    updateFixed();
+  }
+
+  var stickyBar = document.getElementById("desktopStickyBar");
+  var heroAnchor = document.querySelector(".boxBuy .buyButton");
+  if (stickyBar && heroAnchor && "IntersectionObserver" in window) {
+    var observer = new IntersectionObserver(function (entries) {
+      entries.forEach(function (entry) {
+        if (entry.isIntersecting) { stickyBar.classList.remove("is-visible"); }
+        else if (entry.boundingClientRect.top < 0) { stickyBar.classList.add("is-visible"); }
+      });
+    }, { threshold: 0 });
+    observer.observe(heroAnchor);
+  }
+  var sectionNav = document.querySelector(".tabsProNav");
+  if (sectionNav) {
+    window.addEventListener("scroll", function () {
+      var rect = sectionNav.getBoundingClientRect();
+      sectionNav.classList.toggle("is-stuck", rect.top <= 0);
+    }, { passive: true });
+  }
+
+  // انيميشن هيدر المحاضرين — بيبي بلو + particles
+  (function initInstructorCoverAnim() {
+    const canvas = document.getElementById("instructorCoverCanvas");
+    const cover = canvas && canvas.parentElement;
+    if (!canvas || !cover) return;
+    const ctx = canvas.getContext("2d");
+    let particles = [];
+    let raf;
+
+    function resize() {
+      const w = cover.offsetWidth;
+      const h = cover.offsetHeight;
+      canvas.width = w * (window.devicePixelRatio || 1);
+      canvas.height = h * (window.devicePixelRatio || 1);
+      canvas.style.width = w + "px";
+      canvas.style.height = h + "px";
+      ctx.setTransform(window.devicePixelRatio || 1, 0, 0, window.devicePixelRatio || 1, 0, 0);
+      const count = Math.min(28, Math.floor((w * h) / 1800));
+      particles = [];
+      for (let i = 0; i < count; i++) {
+        particles.push({
+          x: Math.random() * w,
+          y: Math.random() * h,
+          r: Math.random() * 2.2 + 0.6,
+          vx: (Math.random() - 0.5) * 0.28,
+          vy: (Math.random() - 0.5) * 0.22,
+          a: Math.random() * 0.35 + 0.15
+        });
+      }
+    }
+
+    function draw() {
+      const w = cover.offsetWidth;
+      const h = cover.offsetHeight;
+      ctx.clearRect(0, 0, w, h);
+      particles.forEach((p, i) => {
+        p.x += p.vx;
+        p.y += p.vy;
+        if (p.x < 0 || p.x > w) p.vx *= -1;
+        if (p.y < 0 || p.y > h) p.vy *= -1;
+        for (let j = i + 1; j < particles.length; j++) {
+          const q = particles[j];
+          const dx = p.x - q.x, dy = p.y - q.y;
+          const dist = Math.sqrt(dx * dx + dy * dy);
+          if (dist < 70) {
+            ctx.beginPath();
+            ctx.strokeStyle = `rgba(0,58,94,${(1 - dist / 70) * 0.12})`;
+            ctx.lineWidth = 0.7;
+            ctx.moveTo(p.x, p.y);
+            ctx.lineTo(q.x, q.y);
+            ctx.stroke();
+          }
+        }
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(255,255,255,${p.a})`;
+        ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
+        ctx.fill();
+        ctx.beginPath();
+        ctx.fillStyle = `rgba(30,111,184,${p.a * 0.5})`;
+        ctx.arc(p.x, p.y, p.r * 0.55, 0, Math.PI * 2);
+        ctx.fill();
+      });
+      raf = requestAnimationFrame(draw);
+    }
+
+    resize();
+    draw();
+    window.addEventListener("resize", resize);
+  })();
+});
+</script>
+</body>
+</html>
