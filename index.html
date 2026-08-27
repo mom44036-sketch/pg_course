@@ -84,7 +84,7 @@
     .mobileBuyBar__current{font-weight:900;color:#ff9900;font-size:20px;line-height:1.1}
     .mobileBuyBar__current small{font-size:12px;color:#5a6d80;font-weight:600}
     .mobileBuyBar__old{font-size:12px;color:#94a3b8;text-decoration:line-through;font-weight:600}
-    .mobileBuyBar__badge{background:#fff3e0;color:#c2410c;border:1px solid #ffe0b2;font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap}
+    .mobileBuyBar__badge{background:#ecfdf5;color:#047857;border:1px solid #6ee7b7;font-size:10px;font-weight:800;padding:3px 8px;border-radius:999px;white-space:nowrap}
     .mobileBuyBar__actions{display:grid;grid-template-columns:1fr 1fr 1.15fr;gap:8px;width:100%}
     .mobileBuyBar__btn{display:inline-flex;align-items:center;justify-content:center;gap:6px;height:44px;padding:0 10px;border-radius:12px;font-weight:800;font-size:12.5px;text-decoration:none;border:none;cursor:pointer;transition:all .2s ease;white-space:nowrap;line-height:1.2}
     .mobileBuyBar__btn:active{transform:scale(.97)}
@@ -153,16 +153,24 @@
     .tamaraAlert__badge{margin-right:auto;background:#f3e8ff;color:#6d28d9;border:1px solid #e9d5ff;font-size:11px;font-weight:800;padding:5px 11px;border-radius:999px;white-space:nowrap}
     .tamaraAlert__instructions{display:flex;gap:14px;padding:10px 14px;background:#fff;flex-wrap:wrap}
     .tamaraAlert__instructions span{font-size:11.5px;font-weight:700;color:#6d28d9;display:inline-flex;align-items:center;gap:5px}
-    .modal-body-scroll{max-height:min(70vh,520px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch}
+    .modal-body-scroll{max-height:min(60vh,420px);overflow-y:auto;overflow-x:hidden;-webkit-overflow-scrolling:touch;padding:18px}
+    .modal-footer-fixed{padding:14px 18px 16px;background:#fff;border-top:1px solid #eef2f7;flex-shrink:0}
+    .modal-footer-fixed .btnWhatsSupport{margin-top:0}
     .btnDownloadSchedule{display:flex;align-items:center;justify-content:center;gap:10px;width:100%;background:linear-gradient(180deg,#e8f7ed 0%, #d1f0d8 100%);border:1px solid #b7e9c6;color:#0f5d2a;font-weight:800;font-size:14px;padding:13px 16px;border-radius:12px;text-decoration:none;margin-top:16px;transition:all .22s ease;box-shadow:0 4px 12px rgba(15,93,42,.12)}
     .btnDownloadSchedule:hover{background:#003A5E;border-color:#003A5E;color:#fff;box-shadow:0 8px 20px rgba(0,58,94,.25)}
     .reviewsCarouselWrap{background:#fff;border:1px solid #eef2f7;border-radius:16px;overflow:hidden;box-shadow:0 8px 24px rgba(0,58,94,.06)}
-    .reviewsCarouselWrap .carousel-item img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:0}
-    .reviewsCarouselWrap .carousel-indicators button{width:8px;height:8px;border-radius:50%;background:#cbd5e1;border:none;opacity:.6}
-    .reviewsCarouselWrap .carousel-indicators .active{opacity:1;background:#003A5E;width:22px;border-radius:999px}
-    .reviewsCarouselWrap .carousel-control-prev,.reviewsCarouselWrap .carousel-control-next{width:44px;height:44px;background:rgba(255,255,255,.9);border-radius:50%;top:50%;transform:translateY(-50%);opacity:1;border:1px solid #eef2f7;box-shadow:0 4px 12px rgba(0,0,0,.08)}
-    .reviewsCarouselWrap .carousel-control-prev{right:auto;left:14px}
-    .reviewsCarouselWrap .carousel-control-next{left:auto;right:14px}
+    .reviewsCarouselWrap .carousel-item img{width:100%;aspect-ratio:16/9;object-fit:cover;border-radius:0;user-select:none;-webkit-user-drag:none;pointer-events:none}
+    .reviewsCarouselWrap .carousel{touch-action:pan-y;cursor:grab}
+    .reviewsCarouselWrap .carousel:active{cursor:grabbing}
+    .reviewsCarouselNav{display:flex;align-items:center;justify-content:center;gap:14px;padding:14px 16px 16px;background:#fbfcfe;border-top:1px solid #eef2f7}
+    .reviewsCarouselNav .carousel-control-prev,.reviewsCarouselNav .carousel-control-next{position:static;width:42px;height:42px;background:#fff;border-radius:50%;opacity:1;border:1.5px solid #dbeafe;box-shadow:0 2px 8px rgba(0,58,94,.08);display:inline-flex;align-items:center;justify-content:center;color:#003A5E;transition:all .2s ease;transform:none}
+    .reviewsCarouselNav .carousel-control-prev:hover,.reviewsCarouselNav .carousel-control-next:hover{background:#003A5E;color:#fff;border-color:#003A5E;box-shadow:0 4px 14px rgba(0,58,94,.18)}
+    .reviewsCarouselNav .carousel-control-prev i,.reviewsCarouselNav .carousel-control-next i{font-size:18px;font-weight:700}
+    .reviewsCarouselCounter{display:inline-flex;align-items:center;gap:8px;background:#fff;border:1px solid #e6eef8;border-radius:999px;padding:6px 14px;font-size:12.5px;font-weight:700;color:#334155;min-width:110px;justify-content:center}
+    .reviewsCarouselCounter b{color:#003A5E;font-weight:900}
+    .reviewsCarouselDots{display:flex;gap:6px;align-items:center}
+    .reviewsCarouselDots button{width:8px;height:8px;border-radius:50%;background:#cbd5e1;border:none;opacity:.7;padding:0;transition:all .2s ease;cursor:pointer}
+    .reviewsCarouselDots button.active{opacity:1;background:#003A5E;width:20px;border-radius:999px}
 
     .suitableFor{padding:0!important;overflow:hidden!important;background:#fff!important;border:1px solid #e8eef5!important;border-radius:20px!important;box-shadow:0 10px 30px rgba(0,58,94,.05)}
     .suitableFor > h4{padding:18px 20px 14px 20px!important;margin:0!important;border-bottom:1px solid #f1f5f9!important;background:linear-gradient(180deg,#fbfdff 0%, #f8fbff 100%)!important;font-weight:900!important;color:#0f172a!important;display:flex;align-items:center;gap:10px;font-size:16px!important}
@@ -366,10 +374,7 @@
       box-shadow:0 8px 24px rgba(0,58,94,.04);
       position:relative;overflow:hidden;
     }
-    .privateIntroBox::before{
-      content:'';position:absolute;top:0;right:0;width:4px;height:100%;
-      background:linear-gradient(180deg,#003A5E 0%, #ff9900 100%);
-    }
+    .privateIntroBox::before{display:none}
     .privateIntroBox h4{font-weight:900;color:#0f172a;font-size:18px;margin-bottom:10px;display:flex;align-items:center;gap:10px}
     .privateIntroBox h4 i{width:36px;height:36px;background:#003A5E;color:#fff;border-radius:10px;display:inline-flex;align-items:center;justify-content:center;font-size:18px}
     .privateIntroBox p{font-size:13.5px;line-height:1.9;color:#334155;margin-bottom:12px}
@@ -479,7 +484,7 @@
                 <div class="tabbyAlert__top">
                   <span class="tabbyAlert__logo"><img src="tabby_logo_transparent.png" alt="tabby"></span>
                   <span class="tabbyAlert__title">ادفع بالتقسيط مع تابي</span>
-                  <span class="tabbyAlert__badge">قسّط الآن</span>
+                  <span class="tabbyAlert__badge">اضغط هنا</span>
                 </div>
                 <div class="tabbyAlert__instructions">
                   <span><i class="bi bi-check-circle-fill"></i> بدون فوائد</span>
@@ -491,7 +496,7 @@
                 <div class="tamaraAlert__top">
                   <span class="tamaraAlert__logo">تمارا</span>
                   <span class="tamaraAlert__title">ادفع بالتقسيط مع تمارا</span>
-                  <span class="tamaraAlert__badge">قسّط الآن</span>
+                  <span class="tamaraAlert__badge">اضغط هنا</span>
                 </div>
                 <div class="tamaraAlert__instructions">
                   <span><i class="bi bi-check-circle-fill"></i> بدون فوائد</span>
@@ -648,11 +653,14 @@
                 </div>
 
                 <div class="reviewsCarouselWrap">
-                  <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000">
-                    <div class="carousel-indicators" id="reviewsIndicators"></div>
+                  <div id="reviewsCarousel" class="carousel slide" data-bs-ride="carousel" data-bs-interval="4000" data-bs-touch="true">
                     <div class="carousel-inner" id="reviewsInner"></div>
-                    <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev"><i class="bi bi-chevron-right"></i></button>
-                    <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next"><i class="bi bi-chevron-left"></i></button>
+                  </div>
+                  <div class="reviewsCarouselNav">
+                    <button class="carousel-control-prev" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="prev" aria-label="السابق"><i class="bi bi-chevron-right"></i></button>
+                    <div class="reviewsCarouselCounter"><span id="reviewsCounterText">1 / 4</span></div>
+                    <div class="reviewsCarouselDots" id="reviewsIndicators"></div>
+                    <button class="carousel-control-next" type="button" data-bs-target="#reviewsCarousel" data-bs-slide="next" aria-label="التالي"><i class="bi bi-chevron-left"></i></button>
                   </div>
                 </div>
               </div>
@@ -684,16 +692,16 @@
             <div>
               <div class="priceOld" id="sidebarOldPrice">2000.00 ريال</div>
               <div class="priceCurrent" id="sidebarCurrentPrice">1299.00 <small style="font-size:14px;font-weight:600;color:#5a6d80">ر.س</small></div>
-              <div class="priceSave" id="sidebarSave"><i class="bi bi-check-circle-fill"></i> وفرت 701 ر.س - برايفت</div>
+              <div class="priceSave" id="sidebarSave"><i class="bi bi-check-circle-fill"></i> وفرت 701 ر.س - 35%</div>
             </div>
             <div style="text-align:left"><span style="font-size:11px;color:#6b7a8a">المدة</span><br><span style="font-weight:800;color:#0f172a;font-size:13px" id="sidebarDuration">180 يوم وصول</span></div>
           </div>
           <div class="tabbyAlert" data-bs-toggle="modal" data-bs-target="#tabbyModal" title="اضغط لمعرفة شروط التقسيط" style="margin-top: 20px;">
-            <div class="tabbyAlert__top"><span class="tabbyAlert__logo"><img src="tabby_logo_transparent.png" alt="tabby"></span><span class="tabbyAlert__title">ادفع بالتقسيط مع تابي</span><span class="tabbyAlert__badge">قسّط الآن</span></div>
+            <div class="tabbyAlert__top"><span class="tabbyAlert__logo"><img src="tabby_logo_transparent.png" alt="tabby"></span><span class="tabbyAlert__title">ادفع بالتقسيط مع تابي</span><span class="tabbyAlert__badge">اضغط هنا</span></div>
             <div class="tabbyAlert__instructions"><span><i class="bi bi-check-circle-fill"></i> بدون فوائد</span><span><i class="bi bi-shield-check"></i> متوافق مع الشريعة</span><span><i class="bi bi-lightning-charge-fill"></i> تفعيل فوري</span></div>
           </div>
           <div class="tamaraAlert" data-bs-toggle="modal" data-bs-target="#tamaraModal" title="اضغط لمعرفة شروط التقسيط مع تمارا">
-            <div class="tamaraAlert__top"><span class="tamaraAlert__logo">تمارا</span><span class="tamaraAlert__title">ادفع بالتقسيط مع تمارا</span><span class="tamaraAlert__badge">قسّط الآن</span></div>
+            <div class="tamaraAlert__top"><span class="tamaraAlert__logo">تمارا</span><span class="tamaraAlert__title">ادفع بالتقسيط مع تمارا</span><span class="tamaraAlert__badge">اضغط هنا</span></div>
             <div class="tamaraAlert__instructions"><span><i class="bi bi-check-circle-fill"></i> بدون فوائد</span><span><i class="bi bi-shield-check"></i> متوافق مع الشريعة</span><span><i class="bi bi-lightning-charge-fill"></i> تفعيل فوري</span></div>
           </div>
           <a href="#" class="buyButton btn w-100" id="sidebarBuyBtn" style="margin-top: 20px; background:linear-gradient(180deg,#ffb341 0%, #ff9900 100%);color:#003A5E;text-align:center;font-size:15px;font-weight:800;padding:14px;text-decoration:none;display:flex;align-items:center;justify-content:center;gap:10px;border-radius:12px;border:1px solid #e68a00;box-shadow:0 8px 18px rgba(255,153,0,.28)"><i class="bi bi-bag-check-fill"></i> احجز البرايفت الآن - <span id="sidebarBuyPrice">1299</span> ر.س</a>
@@ -715,7 +723,7 @@
       <span class="mobileBuyBar__current" id="mobileCurrentPrice">1299.00 <small>ر.س</small></span>
       <span class="mobileBuyBar__old" id="mobileOldPrice">2000 ر.س</span>
     </div>
-    <span class="mobileBuyBar__badge"><i class="bi bi-person-check-fill"></i> برايفت فردي</span>
+    <span class="mobileBuyBar__badge"><i class="bi bi-tag-fill"></i> وفر 35% — 701 ريال</span>
   </div>
   <div class="mobileBuyBar__actions">
     <button type="button" class="mobileBuyBar__btn mobileBuyBar__btn--tabby" data-bs-toggle="modal" data-bs-target="#tabbyModal" title="التقسيط مع تابي">
@@ -742,7 +750,7 @@
         <h5 class="modal-title" style="font-weight:800;color:#0f3d1f;font-size:15px;display:flex;align-items:center;gap:10px"><span class="tabbyAlert__logo" style="width:52px;height:32px"><img src="tabby_logo_transparent.png" alt="tabby"></span> ادفع بالتقسيط مع تابي</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body modal-body-scroll" style="background:#fff;padding:18px">
+      <div class="modal-body modal-body-scroll" style="background:#fff">
         <div style="background:linear-gradient(180deg,#f6fef8 0%, #eef7f0 100%);border:1px solid #c8e6c9;border-radius:14px;padding:14px;margin-bottom:14px">
           <b style="color:#0f3d1f;font-size:14px;display:block;margin-bottom:4px">لماذا تختار تابي؟</b>
           <div style="font-size:12.5px;color:#5f7d61;line-height:1.7">تقسيط سهل ومرن بدون فوائد، متوافق مع الشريعة، ومرخّص من البنك المركزي السعودي — تفعيل فوري للدورة بعد إتمام الدفع.</div>
@@ -769,6 +777,8 @@
           <div style="font-size:12.5px;color:#166534;display:flex;gap:8px;font-weight:700"><i class="bi bi-shield-check"></i> متوافق مع الشريعة الإسلامية</div>
           <div style="font-size:12.5px;color:#166534;display:flex;gap:8px;font-weight:700"><i class="bi bi-bank"></i> مرخّص من البنك المركزي السعودي</div>
         </div>
+      </div>
+      <div class="modal-footer-fixed">
         <a href="https://wa.me/966920019606?text=السلام عليكم انا قادم من الموقع من دورة [اكتب اسم الدورة هنا ] واريد التقسيط عن طريق تابي" target="_blank" class="btnWhatsSupport"><i class="bi bi-whatsapp" style="font-size:18px"></i> تواصل مع الدعم للتقسيط</a>
         <div style="text-align:center;margin-top:10px;font-size:11px;color:#94a3b8"><i class="bi bi-lock-fill"></i> دفع آمن 100% • تفعيل فوري • مدرس خاص لك</div>
       </div>
@@ -783,7 +793,7 @@
         <h5 class="modal-title" style="font-weight:800;color:#4c1d95;font-size:15px;display:flex;align-items:center;gap:10px"><span class="tamaraAlert__logo" style="width:52px;height:32px;font-size:12px">تمارا</span> ادفع بالتقسيط مع تمارا</h5>
         <button type="button" class="btn-close" data-bs-dismiss="modal"></button>
       </div>
-      <div class="modal-body modal-body-scroll" style="background:#fff;padding:18px">
+      <div class="modal-body modal-body-scroll" style="background:#fff">
         <div style="background:linear-gradient(180deg,#faf5ff 0%, #f5f0ff 100%);border:1px solid #e9d5ff;border-radius:14px;padding:14px;margin-bottom:14px">
           <b style="color:#4c1d95;font-size:14px;display:block;margin-bottom:4px">لماذا تختار تمارا؟</b>
           <div style="font-size:12.5px;color:#6b21a8;line-height:1.7">تقسيط مرن بدون فوائد وبدون رسوم تأخير، متوافق مع الشريعة، وسهل الاستخدام — ادفع الآن على دفعات واستمتع بالدورة فوراً.</div>
@@ -810,7 +820,9 @@
           <div style="font-size:12.5px;color:#6d28d9;display:flex;gap:8px;font-weight:700"><i class="bi bi-shield-check"></i> متوافق مع الشريعة الإسلامية</div>
           <div style="font-size:12.5px;color:#6d28d9;display:flex;gap:8px;font-weight:700"><i class="bi bi-phone"></i> سهل وسريع — رقم جوالك فقط</div>
         </div>
-        <a href="https://wa.me/966920019606?text=السلام عليكم انا قادم من الموقع من دورة [اكتب اسم الدورة هنا ] واريد التقسيط عن طريق تمارا"  target="_blank" class="btnWhatsSupport btnWhatsSupport--tamara"><i class="bi bi-whatsapp" style="font-size:18px"></i> تواصل مع الدعم للتقسيط</a>
+      </div>
+      <div class="modal-footer-fixed">
+        <a href="https://wa.me/966920019606?text=السلام عليكم انا قادم من الموقع من دورة [اكتب اسم الدورة هنا ] واريد التقسيط عن طريق تمارا" target="_blank" class="btnWhatsSupport btnWhatsSupport--tamara"><i class="bi bi-whatsapp" style="font-size:18px"></i> تواصل مع الدعم للتقسيط</a>
         <div style="text-align:center;margin-top:10px;font-size:11px;color:#94a3b8"><i class="bi bi-lock-fill"></i> دفع آمن 100% • تفعيل فوري • مدرس خاص لك</div>
       </div>
     </div>
@@ -1038,7 +1050,7 @@ function renderPage() {
   document.getElementById("overviewPrice").textContent = d.price;
   document.getElementById("sidebarOldPrice").textContent = d.oldPrice.toFixed(2) + " ريال";
   document.getElementById("sidebarCurrentPrice").innerHTML = d.price.toFixed(2) + ` <small style="font-size:14px;font-weight:600;color:#5a6d80">${d.currency}</small>`;
-  document.getElementById("sidebarSave").innerHTML = `<i class="bi bi-check-circle-fill"></i> وفرت ${save} ر.س - برايفت`;
+  document.getElementById("sidebarSave").innerHTML = `<i class="bi bi-check-circle-fill"></i> وفرت ${save} ر.س - 35%`;
   document.getElementById("sidebarDuration").textContent = d.durationLabel;
   document.getElementById("sidebarBuyPrice").textContent = d.price;
   document.getElementById("mobileCurrentPrice").innerHTML = d.price.toFixed(2) + ` <small>${d.currency}</small>`;
@@ -1159,12 +1171,25 @@ function renderPage() {
   `).join("");
 
   // Reviews carousel
+  const totalReviews = d.reviewsImages.length;
   document.getElementById("reviewsIndicators").innerHTML = d.reviewsImages.map((_, i) => `
-    <button type="button" data-bs-target="#reviewsCarousel" data-bs-slide-to="${i}" class="${i === 0 ? "active" : ""}" ${i === 0 ? 'aria-current="true"' : ""}></button>
+    <button type="button" data-bs-target="#reviewsCarousel" data-bs-slide-to="${i}" class="${i === 0 ? "active" : ""}" ${i === 0 ? 'aria-current="true"' : ""} aria-label="شريحة ${i + 1}"></button>
   `).join("");
   document.getElementById("reviewsInner").innerHTML = d.reviewsImages.map((src, i) => `
     <div class="carousel-item ${i === 0 ? "active" : ""}"><img src="${src}" alt="نتائج الطلاب ${i + 1}"></div>
   `).join("");
+  const counterEl = document.getElementById("reviewsCounterText");
+  if (counterEl) counterEl.innerHTML = `<b>1</b> / ${totalReviews}`;
+  const reviewsCarouselEl = document.getElementById("reviewsCarousel");
+  if (reviewsCarouselEl) {
+    reviewsCarouselEl.addEventListener("slid.bs.carousel", function (e) {
+      const idx = e.to + 1;
+      if (counterEl) counterEl.innerHTML = `<b>${idx}</b> / ${totalReviews}`;
+      document.querySelectorAll("#reviewsIndicators button").forEach((btn, i) => {
+        btn.classList.toggle("active", i === e.to);
+      });
+    });
+  }
 
   // FAQ
   document.getElementById("faqAccordion").innerHTML = d.faq.map(f => `
