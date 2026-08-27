@@ -609,7 +609,6 @@
                         <p id="instructorTeamSubtitle">مدرّس خاص يتابعك وحدك • خطة فردية 100% • متابعة 24 ساعة</p>
                       </div>
                     </div>
-                    <span class="instructorPro__badgeLive"><i class="bi bi-dot" style="color:#16a34a;font-size:20px"></i> متاح الآن للبرايفت</span>
                   </div>
 
                   <div class="instructorPro__statsNew" id="instructorStats"></div>
@@ -1267,25 +1266,46 @@ document.addEventListener("DOMContentLoaded", function () {
     });
   });
 
-  // Tabs scroll
+  // Tabs scroll + scroll-spy
   const navLinks = Array.from(document.querySelectorAll("#nav-tab .nav-link"));
-  function setActiveNavLink(link) {
+  const navTabEl = document.getElementById("nav-tab");
+  let isScrollingByClick = false;
+  let clickScrollTimer = null;
+
+  function setActiveNavLink(link, fromScroll) {
+    if (!link || link.classList.contains("active")) {
+      if (link && fromScroll) centerActiveTab(link);
+      return;
+    }
     navLinks.forEach(l => l.classList.remove("active"));
     link.classList.add("active");
-    link.scrollIntoView({ behavior: "smooth", block: "nearest", inline: "center" });
+    centerActiveTab(link);
   }
+
+  function centerActiveTab(link) {
+    if (!navTabEl || !link) return;
+    const tabRect = navTabEl.getBoundingClientRect();
+    const linkRect = link.getBoundingClientRect();
+    const offset = (linkRect.left + linkRect.right) / 2 - (tabRect.left + tabRect.right) / 2;
+    navTabEl.scrollBy({ left: offset, behavior: "smooth" });
+  }
+
   function scrollToSection(target) {
     if (!target) return;
-    const yOffset = -120;
+    const yOffset = -130;
     const y = target.getBoundingClientRect().top + window.pageYOffset + yOffset;
     window.scrollTo({ top: y, behavior: "smooth" });
   }
+
   navLinks.forEach(link => {
     link.addEventListener("click", function (e) {
       e.preventDefault();
       const target = document.querySelector(this.dataset.scrollTarget);
+      isScrollingByClick = true;
+      if (clickScrollTimer) clearTimeout(clickScrollTimer);
+      setActiveNavLink(this, false);
       scrollToSection(target);
-      setActiveNavLink(this);
+      clickScrollTimer = setTimeout(function () { isScrollingByClick = false; }, 900);
     });
   });
 
@@ -1295,27 +1315,41 @@ document.addEventListener("DOMContentLoaded", function () {
     btnShow.addEventListener("click", function (e) {
       e.preventDefault();
       const target = document.getElementById("nav-curriculum");
+      isScrollingByClick = true;
+      if (clickScrollTimer) clearTimeout(clickScrollTimer);
       scrollToSection(target);
       const curriculumLink = document.getElementById("nav-curriculum-tab");
-      if (curriculumLink) setActiveNavLink(curriculumLink);
+      if (curriculumLink) setActiveNavLink(curriculumLink, false);
+      clickScrollTimer = setTimeout(function () { isScrollingByClick = false; }, 900);
     });
   }
 
-  const spySections = navLinks.map(link => document.querySelector(link.dataset.scrollTarget)).filter(Boolean);
-  if ("IntersectionObserver" in window && spySections.length) {
-    const spyObserver = new IntersectionObserver((entries) => {
-      entries.forEach(entry => {
-        if (entry.isIntersecting) {
-          const matchingLink = navLinks.find(l => l.dataset.scrollTarget === ("#" + entry.target.id));
-          if (matchingLink && !matchingLink.classList.contains("active")) {
-            navLinks.forEach(l => l.classList.remove("active"));
-            matchingLink.classList.add("active");
-          }
-        }
-      });
-    }, { root: null, rootMargin: "-130px 0px -65% 0px", threshold: 0 });
-    spySections.forEach(sec => spyObserver.observe(sec));
+  // أثناء السكرول: فعّل التاب المناسب وحرّك شريط التبويبات عليه
+  const spySections = navLinks
+    .map(link => ({ link, section: document.querySelector(link.dataset.scrollTarget) }))
+    .filter(item => item.section);
+
+  function updateActiveTabOnScroll() {
+    if (isScrollingByClick || !spySections.length) return;
+    const marker = 140;
+    let current = spySections[0];
+    for (let i = 0; i < spySections.length; i++) {
+      const top = spySections[i].section.getBoundingClientRect().top;
+      if (top <= marker) current = spySections[i];
+    }
+    if (current && current.link) setActiveNavLink(current.link, true);
   }
+
+  let spyTicking = false;
+  window.addEventListener("scroll", function () {
+    if (spyTicking) return;
+    spyTicking = true;
+    requestAnimationFrame(function () {
+      updateActiveTabOnScroll();
+      spyTicking = false;
+    });
+  }, { passive: true });
+  updateActiveTabOnScroll();
 
   // Sticky buy box
   const buyBox = document.getElementById("buyBox");
