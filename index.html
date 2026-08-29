@@ -36,12 +36,29 @@
     .contentCour .courseTitle h2{font-size:clamp(26px,4vw,40px)!important;line-height:1.3!important;font-weight:800;color:var(--brand-navy);margin-bottom:14px}
     .boxBuy{border:1px solid var(--brand-border);border-radius:16px;padding:22px;background:#fff;box-shadow:none;transition:border-color .2s ease}
     .dualCtaSection{margin:12px 0 6px 0}
-    .dualCta{display:flex;gap:12px;flex-wrap:wrap}
-    .btnPro{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:14px;font-weight:800;font-size:15px;text-decoration:none;transition:all .22s ease;min-width:190px}
+    .dualCta{display:flex;gap:12px;flex-wrap:wrap;align-items:stretch}
+    .btnPro{display:inline-flex;align-items:center;justify-content:center;gap:10px;height:54px;padding:0 26px;border-radius:14px;font-weight:800;font-size:15px;text-decoration:none;transition:all .22s ease;min-width:190px;box-sizing:border-box;line-height:1.25;text-align:center}
     .btnPro-primary{background:linear-gradient(180deg,#ffb341 0%, #ff9900 100%);color:#003A5E;border:1px solid #e68a00;box-shadow:0 10px 22px rgba(255,153,0,.28)}
     .btnPro-primary:hover{transform:translateY(-1px);box-shadow:0 14px 28px rgba(255,153,0,.34);color:#003A5E}
     .btnPro-secondary{background:#fff;color:#003A5E;border:2px solid #003A5E;box-shadow:0 6px 18px rgba(0,58,94,.06)}
     .btnPro-secondary:hover{background:#003A5E;color:#fff}
+    .dualCtaSection .text-right{font-size:11px;color:#6b7a8a;font-weight:600;line-height:1.5}
+    /* تابلت: جنب بعض بعرض متساوٍ */
+    @media(max-width:991.98px){
+      .dualCta{display:grid;grid-template-columns:1fr 1fr;gap:10px}
+      .dualCta .btnPro{width:100%;min-width:0;height:auto;min-height:52px;padding:12px 14px;font-size:14px;gap:8px}
+    }
+    /* موبايل: عمودي كامل العرض */
+    @media(max-width:575.98px){
+      .dualCta{grid-template-columns:1fr;gap:10px}
+      .dualCta .btnPro{min-height:50px;padding:13px 16px;font-size:14.5px;border-radius:12px;gap:8px}
+      .dualCta .btnPro i{font-size:16px}
+      .dualCtaSection .text-right{font-size:10.5px;margin-top:8px!important;text-align:center!important}
+    }
+    /* شاشات ضيقة جداً */
+    @media(max-width:380px){
+      .dualCta .btnPro{font-size:13.5px;padding:12px 12px;min-height:48px}
+    }
     .contentPro{border:1px solid var(--brand-border);border-radius:16px;overflow:hidden;background:#fff;box-shadow:none;margin-top:22px}
     .contentPro__header{padding:16px 18px;display:flex;align-items:center;justify-content:space-between;background:#fbfcfe;border-bottom:1px solid #eef2f7;flex-wrap:wrap;gap:10px}
     .contentPro__title{display:flex;align-items:center;gap:10px;font-weight:800;color:var(--brand-navy);font-size:17px}
@@ -94,6 +111,18 @@
     .mobileBuyBar__btn--tabby .mbLogo img{width:100%;height:100%;object-fit:contain;filter:brightness(0) invert(1)}
     .mobileBuyBar__btn--tamara{background:linear-gradient(180deg,#faf5ff 0%, #f3e8ff 100%);color:#7c3aed;border:1.5px solid #d8b4fe;box-shadow:0 2px 8px rgba(150,1,241,.1)}
     .mobileBuyBar__btn--tamara:hover{background:linear-gradient(180deg,#f3e8ff 0%, #e9d5ff 100%);color:#6d28d9;box-shadow:0 4px 12px rgba(150,1,241,.16)}
+    .mobileBuyBar__btn--tamara .mbLogo{
+      width:22px;height:16px;flex:0 0 22px;
+      background:linear-gradient(135deg,#9601F1 0%, #7c3aed 50%, #6d28d9 100%);
+      border-radius:4px;
+      display:inline-flex;align-items:center;justify-content:center;
+      overflow:hidden;
+      box-shadow:0 1px 4px rgba(150,1,241,.25);
+    }
+    .mobileBuyBar__btn--tamara .mbLogo span{
+      color:#fff;font-weight:900;font-size:7px;letter-spacing:-.2px;line-height:1;
+      font-family:'Cairo',sans-serif;
+    }
     .mobileBuyBar__btn--cta{background:linear-gradient(180deg,#ffb341 0%, #ff9900 100%);color:#003A5E;border:1px solid #e68a00;box-shadow:0 4px 12px rgba(255,153,0,.28)}
     .mobileBuyBar__btn--cta:hover{color:#003A5E;box-shadow:0 6px 16px rgba(255,153,0,.36)}
     @media(max-width:420px){
@@ -206,26 +235,53 @@
       position:relative;
     }
     .instructorPro__cover{
-      height:110px;
-      background:linear-gradient(135deg,#b8d4f0 0%, #a8c8e8 25%, #c5daf5 55%, #d6e8f8 100%);
+      height:120px;
+      background:
+        linear-gradient(135deg, rgba(0,58,94,.92) 0%, rgba(15,76,120,.88) 40%, rgba(30,111,184,.85) 100%),
+        linear-gradient(180deg, #0a2f4f 0%, #003A5E 100%);
       position:relative;overflow:hidden;
     }
-    .instructorPro__coverPattern{
-      position:absolute;inset:0;
+    .instructorPro__cover::before{
+      content:'';
+      position:absolute;inset:0;z-index:0;pointer-events:none;
       background-image:
-        radial-gradient(rgba(255,255,255,.45) 1.2px, transparent 1.6px),
-        radial-gradient(rgba(0,58,94,.08) 1px, transparent 1.4px);
-      background-size:22px 22px, 34px 34px;
-      background-position:0 0, 11px 11px;
-      opacity:.9;
-      animation:coverTextureMove 18s linear infinite;
+        /* subtle notebook lines */
+        repeating-linear-gradient(
+          0deg,
+          transparent 0px,
+          transparent 11px,
+          rgba(255,255,255,.04) 11px,
+          rgba(255,255,255,.04) 12px
+        ),
+        /* soft vertical rule like a page margin */
+        linear-gradient(90deg, rgba(255,255,255,.06) 0, rgba(255,255,255,.06) 1px, transparent 1px),
+        /* soft light glow */
+        radial-gradient(ellipse 80% 60% at 20% 30%, rgba(255,255,255,.18) 0%, transparent 55%),
+        radial-gradient(ellipse 60% 50% at 85% 70%, rgba(255,153,0,.12) 0%, transparent 50%);
+      background-size:100% 100%, 48px 100%, 100% 100%, 100% 100%;
+      background-position:0 0, 36px 0, 0 0, 0 0;
+    }
+    .instructorPro__coverPattern{
+      position:absolute;inset:0;z-index:1;
+      background-image:
+        /* fine academic grid dots */
+        radial-gradient(rgba(255,255,255,.22) 1px, transparent 1.2px),
+        radial-gradient(rgba(255,255,255,.1) .8px, transparent 1px),
+        /* subtle diamond / book motif */
+        linear-gradient(45deg, rgba(255,255,255,.03) 25%, transparent 25%),
+        linear-gradient(-45deg, rgba(255,255,255,.03) 25%, transparent 25%);
+      background-size:20px 20px, 32px 32px, 28px 28px, 28px 28px;
+      background-position:0 0, 10px 10px, 0 0, 14px 14px;
+      opacity:.85;
+      animation:coverTextureMove 22s linear infinite;
+      mix-blend-mode:soft-light;
     }
     .instructorPro__coverCanvas{
-      position:absolute;inset:0;width:100%;height:100%;z-index:1;pointer-events:none;
+      position:absolute;inset:0;width:100%;height:100%;z-index:2;pointer-events:none;
     }
     @keyframes coverTextureMove{
-      0%{background-position:0 0, 11px 11px}
-      100%{background-position:44px 44px, 55px 55px}
+      0%{background-position:0 0, 10px 10px, 0 0, 14px 14px}
+      100%{background-position:40px 40px, 50px 50px, 28px 28px, 42px 42px}
     }
     .instructorPro__body{padding:22px 22px 20px 22px;background:#fff}
     .instructorPro__headerTop{display:flex;align-items:flex-start;justify-content:space-between;gap:16px;margin-bottom:18px}
@@ -437,16 +493,60 @@
     .scheduleItem__week{font-size:11px;font-weight:800;color:#fff;background:#003A5E;border-radius:999px;padding:3px 8px;display:inline-block;margin-bottom:8px}
     .scheduleItem__title{font-weight:800;color:#0f172a;font-size:13.5px;display:flex;gap:6px;align-items:center;margin-bottom:4px}
     .scheduleItem__meta{font-size:11.5px;color:#64748b}
-    .freeTestCard{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:14px 16px;margin-bottom:4px}
+    .freeTestCard{display:flex;align-items:center;gap:12px;background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:14px 16px;margin-bottom:4px;flex-wrap:nowrap}
     .freeTestCard__icon{width:40px;height:40px;border-radius:10px;background:#e3f2fd;color:#1565c0;display:inline-flex;align-items:center;justify-content:center;font-size:18px;flex:0 0 40px}
+    .freeTestCard__body{flex:1;min-width:0}
     .freeTestCard b{display:block;font-size:13.5px;color:#0f172a}
     .freeTestCard span{font-size:11.5px;color:#64748b}
-    .freeTestCard__btn{margin-right:auto;background:#003A5E;color:#fff;font-size:11px;font-weight:700;padding:7px 12px;border-radius:8px;text-decoration:none;white-space:nowrap}
+    .freeTestCard__btn{margin-right:auto;background:#003A5E;color:#fff;font-size:11px;font-weight:700;padding:7px 12px;border-radius:8px;text-decoration:none;white-space:nowrap;flex:0 0 auto;align-self:center}
+    @media(max-width:575.98px){
+      .freeTestCard{flex-wrap:wrap;align-items:flex-start}
+      .freeTestCard__body{flex:1 1 calc(100% - 52px);min-width:0}
+      .freeTestCard__btn{width:100%;margin:8px 0 0 0;text-align:center;justify-content:center;display:inline-flex;padding:10px 12px;font-size:12.5px}
+    }
 
     /* سعر أكبر في السايدبار */
     .boxBuy .priceCurrent{font-size:28px!important;font-weight:900;color:#ff9900;line-height:1.1}
     .boxBuy .priceOld{font-size:14px;color:#8a9bb0;text-decoration:line-through}
     .boxBuy .priceSave{font-size:12px;color:#2e7d32;font-weight:700}
+
+    /* ملاحظة الوصول الخضراء — متجاوبة */
+    .accessNotePro{
+      margin-top:12px;
+      background:linear-gradient(180deg,#f0fdf4 0%, #ecfdf5 100%);
+      border:1px solid #bbf7d0;
+      border-radius:12px;
+      padding:12px 14px;
+      display:flex;
+      align-items:flex-start;
+      gap:12px;
+      color:#166534;
+    }
+    .accessNotePro__icon{
+      width:36px;height:36px;flex:0 0 36px;
+      border-radius:10px;
+      background:#dcfce7;
+      border:1px solid #bbf7d0;
+      color:#16a34a;
+      display:inline-flex;align-items:center;justify-content:center;
+      font-size:16px;
+    }
+    .accessNotePro__text{
+      display:flex;flex-direction:column;gap:3px;min-width:0;flex:1;
+    }
+    .accessNotePro__main{
+      font-size:13px;font-weight:800;color:#14532d;line-height:1.4;
+    }
+    .accessNotePro__sub{
+      font-size:12px;font-weight:600;color:#166534;line-height:1.55;
+    }
+    .accessNotePro__sub b{font-weight:900;color:#0f3d1f}
+    @media(max-width:575.98px){
+      .accessNotePro{padding:12px;gap:10px}
+      .accessNotePro__icon{width:34px;height:34px;flex:0 0 34px;font-size:15px}
+      .accessNotePro__main{font-size:12.5px}
+      .accessNotePro__sub{font-size:11.5px}
+    }
   </style>
 </head>
 <body>
@@ -544,7 +644,13 @@
                 <div style="background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:14px;margin-top:12px">
                   <b style="font-size:13.5px;color:#0f172a;display:flex;align-items:center;gap:8px;margin-bottom:10px"><i class="bi bi-gift-fill" style="color:#ff9900"></i> أهم مزايا ستيب البرايفت</b>
                   <div class="privateFeaturesGrid" id="privateFeaturesGrid"></div>
-                  <div style="margin-top:12px;background:#f0fdf4;border:1px solid #bbf7d0;border-radius:10px;padding:10px 12px;display:flex;align-items:center;gap:8px;font-size:12.5px;color:#166534;font-weight:700"><i class="bi bi-stopwatch-fill"></i> وصول لمدة 180 يومًا (6 أشهر كاملة) لمراجعة كل المواد التدريبية - سعر الدورة: <span id="overviewPrice">1299</span> ريال فقط</div>
+                  <div class="accessNotePro">
+                    <div class="accessNotePro__icon"><i class="bi bi-stopwatch-fill"></i></div>
+                    <div class="accessNotePro__text">
+                      <span class="accessNotePro__main">وصول لمدة 180 يومًا (6 أشهر كاملة)</span>
+                      <span class="accessNotePro__sub">لمراجعة كل المواد التدريبية — سعر الدورة: <b id="overviewPrice">1299</b> ريال فقط</span>
+                    </div>
+                  </div>
                 </div>
               </div>
 
@@ -746,6 +852,7 @@
       قسط بـ تابي
     </button>
     <button type="button" class="mobileBuyBar__btn mobileBuyBar__btn--tamara" data-bs-toggle="modal" data-bs-target="#tamaraModal" title="التقسيط مع تمارا">
+      <span class="mbLogo" aria-hidden="true"><span>تمارا</span></span>
       قسط بـ تمارا
     </button>
     <a href="#buyBox" class="mobileBuyBar__btn mobileBuyBar__btn--cta">
@@ -773,15 +880,15 @@
         <div style="margin-bottom:12px">
           <b style="font-size:13.5px;color:#0f172a;display:flex;align-items:center;gap:8px;margin-bottom:10px"><i class="bi bi-list-ol" style="color:#16a34a"></i> خطوات التقسيط مع تابي</b>
           <div style="display:grid;gap:10px">
-            <div style="background:#f8fafc;border:1px solid #eef2f7;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
+            <div style="background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
               <span style="width:28px;height:28px;border-radius:8px;background:#e8f5e9;color:#166534;font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px">1</span>
               <div><b style="font-size:13px;color:#0f172a;display:block;margin-bottom:2px">اختر تابي عند الدفع</b><span style="font-size:12px;color:#64748b;line-height:1.5">من صفحة الدفع اختر تابي كطريقة تقسيط ميسّرة.</span></div>
             </div>
-            <div style="background:#f8fafc;border:1px solid #eef2f7;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
+            <div style="background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
               <span style="width:28px;height:28px;border-radius:8px;background:#e8f5e9;color:#166534;font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px">2</span>
               <div><b style="font-size:13px;color:#0f172a;display:block;margin-bottom:2px">أكمل بياناتك وادفع الدفعة الأولى</b><span style="font-size:12px;color:#64748b;line-height:1.5">سجّل برقم جوالك وأكمل التحقق، ثم ادفع أول قسط فوراً.</span></div>
             </div>
-            <div style="background:#f8fafc;border:1px solid #eef2f7;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
+            <div style="background:#fff;border:1px solid #eef2f7;border-radius:12px;padding:12px 14px;display:flex;gap:12px;align-items:flex-start">
               <span style="width:28px;height:28px;border-radius:8px;background:#e8f5e9;color:#166534;font-weight:900;font-size:13px;display:inline-flex;align-items:center;justify-content:center;flex:0 0 28px">3</span>
               <div><b style="font-size:13px;color:#0f172a;display:block;margin-bottom:2px">تفعيل فوري ومتابعة باقي الأقساط</b><span style="font-size:12px;color:#64748b;line-height:1.5">يتم تفعيل البرايفت فوراً، وتتابع بقية الأقساط عبر تطبيق تابي بسهولة.</span></div>
             </div>
@@ -1180,7 +1287,7 @@ function renderPage() {
   document.getElementById("freeTestsList").innerHTML = d.freeTests.map(t => `
     <div class="freeTestCard">
       <div class="freeTestCard__icon" style="background:${t.iconBg};color:${t.iconColor}"><i class="bi ${t.icon}"></i></div>
-      <div><b>${t.title}</b><span>${t.desc}</span></div>
+      <div class="freeTestCard__body"><b>${t.title}</b><span>${t.desc}</span></div>
       <a href="${t.href}" class="freeTestCard__btn">${t.btn}</a>
     </div>
   `).join("");
@@ -1441,7 +1548,7 @@ document.addEventListener("DOMContentLoaded", function () {
           const dist = Math.sqrt(dx * dx + dy * dy);
           if (dist < 70) {
             ctx.beginPath();
-            ctx.strokeStyle = `rgba(0,58,94,${(1 - dist / 70) * 0.12})`;
+            ctx.strokeStyle = `rgba(255,255,255,${(1 - dist / 70) * 0.18})`;
             ctx.lineWidth = 0.7;
             ctx.moveTo(p.x, p.y);
             ctx.lineTo(q.x, q.y);
@@ -1449,11 +1556,11 @@ document.addEventListener("DOMContentLoaded", function () {
           }
         }
         ctx.beginPath();
-        ctx.fillStyle = `rgba(255,255,255,${p.a})`;
+        ctx.fillStyle = `rgba(255,255,255,${p.a + 0.15})`;
         ctx.arc(p.x, p.y, p.r, 0, Math.PI * 2);
         ctx.fill();
         ctx.beginPath();
-        ctx.fillStyle = `rgba(30,111,184,${p.a * 0.5})`;
+        ctx.fillStyle = `rgba(125,211,252,${p.a * 0.55})`;
         ctx.arc(p.x, p.y, p.r * 0.55, 0, Math.PI * 2);
         ctx.fill();
       });
